@@ -15,7 +15,7 @@ HealthVault is a mobile application built using React Native and Expo. The appli
 
 To run this project, you will need to have Expo CLI installed on your machine. You can install it using the following command:
 
-```npm install -g expo-cli
+npm install -g expo-cli
 
 Once you have Expo CLI installed, follow these steps:
 
