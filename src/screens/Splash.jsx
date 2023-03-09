@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import Header from '../components/Header'
+import Loader from '../components/Loader'
 
 const Splash = () => {
   return (
     <View style={styles.container}>
-      <Text>Splash</Text>
+      <Header text="HealthVault" />
+      <Loader />
     </View>
   )
 }
