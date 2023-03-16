@@ -1,24 +1,52 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Header from '../components/Header'
-import Loader from '../components/Loader'
+import { StyleSheet, View } from "react-native";
+import { Header } from "../components/Headers";
+import Loader from "../components/Loader/Loader";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 
 const Splash = () => {
+  const navigation = useNavigation();
+
+  setTimeout(() => {
+    navigation.navigate("Welcome");
+  }, 3000);
+
   return (
-    <View style={styles.container}>
-      <Header text="HealthVault" />
+    <View style={styles.mainContainer}>
+      <View style={styles.container}>
+        <Icon
+          style={styles.icon}
+          name="hand-holding-medical"
+          size={35}
+          color="#fff"
+        />
+        <Header text="HealthVault" />
+      </View>
       <Loader />
     </View>
-  )
-}
+  );
+};
 
-export default Splash
+export default Splash;
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  container: {
+    flex: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  icon: {
+    verticalAlign: "middle",
+    paddingHorizontal: 15,
+    width: 70,
+    height: 70,
+    marginRight: 15,
+    borderRadius: 50,
+    backgroundColor: "#246BFD",
   },
 });
