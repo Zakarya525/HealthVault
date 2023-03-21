@@ -25,6 +25,15 @@ export const createStyle = () => {
       position: "absolute",
       zIndex: 1,
     },
+    img2: {
+      marginTop: 20,
+      width: 400,
+      height: 1000,
+      resizeMode: "contain",
+      position: "absolute",
+      zIndex: 1,
+    },
+
     head: {
       flex: 3,
     },

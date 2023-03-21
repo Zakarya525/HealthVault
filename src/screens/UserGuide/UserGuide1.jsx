@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../utils";
@@ -7,10 +7,17 @@ import BlueCircle from "../../components/BlueCirlces";
 import { PrimaryButton } from "../../components/Buttons";
 import Pagination from "../../components/Pagination";
 import { createStyle } from "./sytle";
+import Loader from "../../components/Loader/Loader.jsx";
 
 const UserGuide1 = () => {
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   const styles = createStyle();
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 500);
+
   const onPress = () => {
     navigation.navigate("UserGuide2");
   };
@@ -19,7 +26,11 @@ const UserGuide1 = () => {
     <View style={styles.mainContainer}>
       <View style={styles.header}>
         <BlueCircle />
-        <Image style={styles.img} source={require("../../images/dr1.png")} />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Image style={styles.img} source={require("../../images/dr1.png")} />
+        )}
       </View>
       <View style={styles.footer}>
         <View style={styles.head}>
