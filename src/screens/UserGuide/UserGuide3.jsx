@@ -16,7 +16,9 @@ const UserGuide3 = () => {
   setTimeout(() => {
     setLoading(false);
   }, 1000);
-  const onPress = () => {};
+  const onPress = () => {
+    navigation.navigate("Login");
+  };
   return (
     <View style={styles.mainContainer}>
       <View style={styles.header}>
