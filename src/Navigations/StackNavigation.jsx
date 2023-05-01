@@ -6,13 +6,14 @@ import DocterList from "../screens/DocterList";
 import { UserGuide1, UserGuide2, UserGuide3 } from "../screens/UserGuide";
 import BottomNavigation from "./BottomNavigation";
 import { Login } from "../screens/Authentication";
+import { Register } from "../screens/Authentication/Register";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Slash"
+      initialRouteName="Splash"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Splash" component={Splash} />
@@ -22,8 +23,9 @@ const StackNavigation = () => {
       <Stack.Screen name="UserGuide3" component={UserGuide3} />
       <Stack.Screen name="DocterList" component={DocterList} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
 
-      <Stack.Screen name="Home" component={BottomNavigation} />
+      <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
     </Stack.Navigator>
   );
 };

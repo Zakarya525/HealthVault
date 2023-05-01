@@ -13,7 +13,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import uuid from "react-native-uuid";
 import { colors } from "../utils";
 import Docter from "../components/Docter";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 const docters = [
   {
     id: uuid.v4(),
@@ -110,11 +110,11 @@ const docterSpeciality = [
   },
 ];
 
-const Home = () => {
-  const navigation = useNavigation();
+const Home = ({ route, navigation }) => {
+  const user = route?.params?.user || "Guest";
   return (
     <View>
-      <Text style={styles.headingLarge}>Greeting</Text>
+      <Text style={styles.headingLarge}>Greeting {user.username}</Text>
 
       <Image
         style={tw`w-80 h-48 ml-10 rounded-xl`}
@@ -126,7 +126,7 @@ const Home = () => {
         {docterSpeciality.map((meal) => {
           return (
             <View style={tw`justify-center items-center m-2 shadow-md`}>
-              <View key={meal.id} style={styles.mealTypeView}>
+              <View key={meal.icon} style={styles.mealTypeView}>
                 <Icon name={meal.icon} size={30} color={colors.primaryColor} />
               </View>
               <Text style={styles.mealTypeText}>{meal.name}</Text>
@@ -153,7 +153,7 @@ const Home = () => {
       <View>
         <ScrollView style={tw`h-64`}>
           {docters.map((docter) => {
-            return <Docter key={docter.id} docter={docter} />;
+            return <Docter key={docter.title} docter={docter} />;
           })}
         </ScrollView>
       </View>

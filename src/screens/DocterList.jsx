@@ -1,73 +1,75 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, FlatList, StyleSheet, View, Button } from "react-native";
-import uuid from "react-native-uuid";
+import Icon from "react-native-vector-icons/FontAwesome";
 import Docter from "../components/Docter";
 import Search from "../components/filters/Search";
+import { TouchableOpacity } from "react-native";
+import { colors } from "../utils";
 
 const docters = [
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Khalid Mehmood",
     price: "$79",
     likes: "332",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Islam Shah",
     price: "$44",
     likes: "332K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Mehmoona",
     price: "$20",
     likes: "33K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Afzal Shan",
     price: "$3",
     likes: "3K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Waseeq Ahmad",
     price: "$8",
     likes: "32K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Noreen",
     price: "$80",
     likes: "52K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Safder Shan",
     price: "$80",
     likes: "500K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Ahmad",
     price: "$45",
     likes: "3K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Wali Akhter",
     price: "$79",
     likes: "7K",
   },
   {
-    id: uuid.v4(),
+    id: Math.random(),
     title: "Dr Yasir Mehmood",
     price: "$79",
     likes: "7K",
   },
 ];
-export default function DocterList() {
+export default function DocterList({ navigation }) {
   const [newItems, setNewItems] = useState(docters);
 
   const searchDocter = (text) => {
@@ -88,10 +90,17 @@ export default function DocterList() {
 
   return (
     <View style={style.container}>
+      <TouchableOpacity
+        style={{ marginLeft: 10, marginBottom: 10 }}
+        onPress={() => navigation.goBack()}
+      >
+        <Icon name="arrow-left" size={20} color={colors.primaryColor} />
+      </TouchableOpacity>
+
       <Search value="Search Docters" searchDocter={searchDocter} />
       <FlatList
         data={newItems}
-        renderItem={({ item }) => <Docter item={item} />}
+        renderItem={({ item }) => <Docter docter={item} />}
       />
       <StatusBar style="auto" />
     </View>

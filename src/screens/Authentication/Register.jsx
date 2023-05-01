@@ -14,11 +14,11 @@ const validationSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
-export const Login = () => {
+export const Register = () => {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handleLogin = (data) => {
+  const handleRegister = (data) => {
     console.log(data);
     console.log(data.username);
     navigation.navigate("BottomNavigation", {
@@ -39,7 +39,7 @@ export const Login = () => {
     <Formik
       initialValues={{ username: "", password: "" }}
       validationSchema={validationSchema}
-      onSubmit={handleLogin}
+      onSubmit={handleRegister}
     >
       {(formikProps) => (
         <View style={styles.container}>
@@ -48,7 +48,7 @@ export const Login = () => {
             size={100}
             color={colors.primaryColor}
           />
-          <Text style={styles.title}>Login to Your Account</Text>
+          <Text style={styles.title}>Create New Account</Text>
           <View style={styles.inputContainer}>
             <Icon name="user" size={24} color="gray" />
             <TextInput
@@ -85,7 +85,7 @@ export const Login = () => {
             style={styles.button}
             onPress={formikProps.handleSubmit}
           >
-            <Text style={styles.buttonText}>Sign In</Text>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.forgotPassword}
@@ -116,10 +116,10 @@ export const Login = () => {
               />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={styles.orContinueWith}>
               Don't have an account?
-              <Text style={styles.forgotPasswordText}> Sign Up</Text>
+              <Text style={styles.forgotPasswordText}> Sign In</Text>
             </Text>
           </TouchableOpacity>
         </View>
