@@ -6,25 +6,58 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
+import ApiManager from "../../services/ApiManager";
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required("Username is required"),
+  CNIC: Yup.string().required("CNIC is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
 });
 
+const formatCNIC = (cnic) => {
+  // Remove all non-digit characters from the CNIC
+  const digitsOnly = cnic.replace(/\D/g, "");
+
+  // Format the CNIC with dashes
+  const formattedCNIC = digitsOnly.replace(
+    /^(\d{5})(\d{7})(\d{1})$/,
+    "$1-$2-$3"
+  );
+
+  return formattedCNIC;
+};
+
 export const Login = () => {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     console.log(data);
-    console.log(data.username);
-    navigation.navigate("BottomNavigation", {
-      screen: "Home",
-      params: { user: data },
-    });
+    try {
+      const url = "https://polyclinic-server.chainspair.com/signin";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientCNIC: data.CNIC,
+          patientPassword: data.password,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+
+      const jwtToken = result.jwt;
+
+      navigation.navigate("BottomNavigation", {
+        screen: "Home",
+        params: { user: result },
+      });
+    } catch (error) {
+      console.error("Error: ", error);
+    }
   };
 
   const handleForgotPassword = () => {
@@ -37,7 +70,7 @@ export const Login = () => {
 
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ CNIC: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={handleLogin}
     >
@@ -53,13 +86,15 @@ export const Login = () => {
             <Icon name="user" size={24} color="gray" />
             <TextInput
               style={styles.input}
-              placeholder="Username"
-              onChangeText={formikProps.handleChange("username")}
-              value={formikProps.values.username}
+              placeholder="CNIC"
+              onChangeText={(cnic) =>
+                formikProps.handleChange("CNIC")(formatCNIC(cnic))
+              }
+              value={formatCNIC(formikProps.values.CNIC)}
             />
           </View>
-          {formikProps.errors.username && formikProps.touched.username && (
-            <Text style={styles.error}>{formikProps.errors.username}</Text>
+          {formikProps.errors.CNIC && formikProps.touched.CNIC && (
+            <Text style={styles.error}>{formikProps.errors.CNIC}</Text>
           )}
           <View style={styles.inputContainer}>
             <Icon name="lock" size={24} color="gray" />
@@ -72,7 +107,7 @@ export const Login = () => {
             />
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <Icon
-                name={isPasswordVisible ? "eye-off" : "eye"}
+                name={isPasswordVisible ? "eye-slash" : "eye"}
                 size={24}
                 color="gray"
               />
@@ -93,29 +128,7 @@ export const Login = () => {
           >
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
-          <View style={styles.divider}>
-            <Text style={styles.orContinueWith}>or continue with</Text>
-          </View>
-          <View style={styles.socialLogin}>
-            <TouchableOpacity style={styles.socialButton}>
-              <Image
-                source={require("../../../assets/facebook-logo.png")}
-                style={styles.socialButtonIcon}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Image
-                source={require("../../../assets/google-logo.png")}
-                style={styles.socialButtonIcon}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Image
-                source={require("../../../assets/apple-logo.png")}
-                style={styles.socialButtonIcon}
-              />
-            </TouchableOpacity>
-          </View>
+
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <Text style={styles.orContinueWith}>
               Don't have an account?

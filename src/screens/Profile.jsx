@@ -67,7 +67,6 @@ const articles = [
 ];
 
 const Profile = () => {
-  const navigation = useNavigation();
   return (
     <View>
       <View style={styles.container}>

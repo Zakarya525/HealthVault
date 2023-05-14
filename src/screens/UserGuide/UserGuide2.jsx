@@ -26,7 +26,7 @@ const UserGuide2 = () => {
         {loading ? (
           <Loader />
         ) : (
-          <Image style={styles.img} source={require("../../images/dr2.png")} />
+          <Image style={styles.img} source={require("../../images/dr1.png")} />
         )}
       </View>
       <View style={styles.footer}>

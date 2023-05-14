@@ -76,5 +76,3 @@ const BottomNavigation = () => {
 };
 
 export default BottomNavigation;
-
-const styles = StyleSheet.create({});

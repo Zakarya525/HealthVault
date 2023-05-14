@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import tw from "twrnc";
@@ -13,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import uuid from "react-native-uuid";
 import { colors } from "../utils";
 import Docter from "../components/Docter";
-import { useRoute } from "@react-navigation/native";
+import { styles } from "./styles";
 const docters = [
   {
     id: uuid.v4(),
@@ -114,7 +107,7 @@ const Home = ({ route, navigation }) => {
   const user = route?.params?.user || "Guest";
   return (
     <View>
-      <Text style={styles.headingLarge}>Greeting {user.username}</Text>
+      <Text style={styles.headingLarge}>Greeting {user.code}</Text>
 
       <Image
         style={tw`w-80 h-48 ml-10 rounded-xl`}
@@ -161,52 +154,5 @@ const Home = ({ route, navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  headingLarge: {
-    fontSize: 25,
-    fontFamily: "Urbanist_700Bold",
-    marginTop: 30,
-    marginBottom: 20,
-    marginStart: 10,
-  },
-
-  headingMedium: {
-    fontSize: 20,
-    fontFamily: "Urbanist_700Bold",
-    marginTop: 10,
-    marginStart: 10,
-    marginBottom: 5,
-  },
-
-  card: {
-    backgroundColor: "#fff",
-    width: 270,
-    height: 100,
-    marginTop: -80,
-    marginStart: 43,
-    marginEnd: 30,
-    borderRadius: 15,
-  },
-
-  innerTextStyle: {
-    fontFamily: "Urbanist_700Bold",
-    fontSize: 20,
-    textAlign: "center",
-    marginTop: 30,
-  },
-  mealTypeView: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    width: 60,
-    height: 60,
-  },
-  mealTypeText: {
-    fontFamily: "Urbanist_700Bold",
-    marginTop: 10,
-  },
-});
 
 export default Home;
