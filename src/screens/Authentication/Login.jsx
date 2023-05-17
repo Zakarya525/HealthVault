@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
-import ApiManager from "../../services/ApiManager";
+import { useQueryClient, useMutation } from "react-query";
 
 const validationSchema = Yup.object().shape({
   CNIC: Yup.string().required("CNIC is required"),
@@ -15,22 +15,10 @@ const validationSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
-const formatCNIC = (cnic) => {
-  // Remove all non-digit characters from the CNIC
-  const digitsOnly = cnic.replace(/\D/g, "");
-
-  // Format the CNIC with dashes
-  const formattedCNIC = digitsOnly.replace(
-    /^(\d{5})(\d{7})(\d{1})$/,
-    "$1-$2-$3"
-  );
-
-  return formattedCNIC;
-};
-
 export const Login = () => {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleLogin = async (data) => {
     console.log(data);
@@ -47,17 +35,23 @@ export const Login = () => {
         }),
       });
       const result = await response.json();
+      queryClient.setQueryData("user", result);
       console.log(result);
 
       const jwtToken = result.jwt;
-
-      navigation.navigate("BottomNavigation", {
-        screen: "Home",
-        params: { user: result },
-      });
     } catch (error) {
       console.error("Error: ", error);
     }
+  };
+
+  const formatCNIC = (cnic) => {
+    const digitsOnly = cnic.replace(/\D/g, "");
+    const formattedCNIC = digitsOnly.replace(
+      /^(\d{5})(\d{7})(\d{1})$/,
+      "$1-$2-$3"
+    );
+
+    return formattedCNIC;
   };
 
   const handleForgotPassword = () => {
@@ -68,11 +62,20 @@ export const Login = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  const mutation = useMutation(handleLogin, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("user");
+      navigation.navigate("BottomNavigation", {
+        screen: "Home",
+      });
+    },
+  });
+
   return (
     <Formik
       initialValues={{ CNIC: "", password: "" }}
       validationSchema={validationSchema}
-      onSubmit={handleLogin}
+      onSubmit={mutation.mutate}
     >
       {(formikProps) => (
         <View style={styles.container}>

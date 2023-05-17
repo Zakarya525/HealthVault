@@ -8,7 +8,10 @@ import {
   Urbanist_600SemiBold,
   Urbanist_700Bold,
 } from "@expo-google-fonts/urbanist";
+import { QueryClient, QueryClientProvider } from "react-query";
 import * as SplashScreen from "expo-splash-screen";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -30,8 +33,10 @@ export default function App() {
   SplashScreen.hideAsync();
 
   return (
-    <NavigationContainer>
-      <StackNavigation />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }

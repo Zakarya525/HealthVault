@@ -7,6 +7,7 @@ import uuid from "react-native-uuid";
 import { colors } from "../utils";
 import Docter from "../components/Docter";
 import { styles } from "./styles";
+import { useQueryClient } from "react-query";
 const docters = [
   {
     id: uuid.v4(),
@@ -104,10 +105,12 @@ const docterSpeciality = [
 ];
 
 const Home = ({ route, navigation }) => {
-  const user = route?.params?.user || "Guest";
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData("user");
+  console.log(user);
   return (
     <View>
-      <Text style={styles.headingLarge}>Greeting {user.code}</Text>
+      <Text style={styles.headingLarge}>Greeting {user?.message}</Text>
 
       <Image
         style={tw`w-80 h-48 ml-10 rounded-xl`}
