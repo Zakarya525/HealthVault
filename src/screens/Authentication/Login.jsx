@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -7,6 +7,7 @@ import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
 import { useQueryClient, useMutation } from "react-query";
+import { loginUser } from "../../services/user/api";
 
 const validationSchema = Yup.object().shape({
   CNIC: Yup.string().required("CNIC is required"),
@@ -20,28 +21,14 @@ export const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const queryClient = useQueryClient();
 
-  const handleLogin = async (data) => {
-    console.log(data);
-    try {
-      const url = "https://polyclinic-server.chainspair.com/signin";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          patientCNIC: data.CNIC,
-          patientPassword: data.password,
-        }),
-      });
-      const result = await response.json();
-      queryClient.setQueryData("user", result);
-      console.log(result);
-
-      const jwtToken = result.jwt;
-    } catch (error) {
-      console.error("Error: ", error);
-    }
+  const handleLogin = async (values) => {
+    const response = await loginUser({
+      cnic: values.CNIC,
+      password: values.password,
+    });
+    const data = await response.json();
+    console.log("This is the data from Server: ", data);
+    queryClient.invalidateQueries("user");
   };
 
   const formatCNIC = (cnic) => {
@@ -54,10 +41,6 @@ export const Login = () => {
     return formattedCNIC;
   };
 
-  const handleForgotPassword = () => {
-    // handle forgot password logic here
-  };
-
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -65,9 +48,6 @@ export const Login = () => {
   const mutation = useMutation(handleLogin, {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
-      navigation.navigate("BottomNavigation", {
-        screen: "Home",
-      });
     },
   });
 
@@ -86,21 +66,21 @@ export const Login = () => {
           />
           <Text style={styles.title}>Login to Your Account</Text>
           <View style={styles.inputContainer}>
-            <Icon name="user" size={24} color="gray" />
+            <Icon name="user" size={21} color="gray" />
             <TextInput
               style={styles.input}
               placeholder="CNIC"
               onChangeText={(cnic) =>
-                formikProps.handleChange("CNIC")(formatCNIC(cnic))
+                formikProps.setFieldValue("CNIC", formatCNIC(cnic))
               }
-              value={formatCNIC(formikProps.values.CNIC)}
+              value={formikProps.values.CNIC}
             />
           </View>
           {formikProps.errors.CNIC && formikProps.touched.CNIC && (
             <Text style={styles.error}>{formikProps.errors.CNIC}</Text>
           )}
           <View style={styles.inputContainer}>
-            <Icon name="lock" size={24} color="gray" />
+            <Icon name="lock" size={21} color="gray" />
             <TextInput
               style={styles.input}
               placeholder="Password"
@@ -125,10 +105,7 @@ export const Login = () => {
           >
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.forgotPassword}
-            onPress={handleForgotPassword}
-          >
+          <TouchableOpacity style={styles.forgotPassword}>
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
 

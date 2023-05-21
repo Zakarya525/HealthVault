@@ -8,6 +8,8 @@ import { colors } from "../utils";
 import Docter from "../components/Docter";
 import { styles } from "./styles";
 import { useQueryClient } from "react-query";
+import storage from "../storage";
+
 const docters = [
   {
     id: uuid.v4(),
@@ -104,13 +106,16 @@ const docterSpeciality = [
   },
 ];
 
-const Home = ({ route, navigation }) => {
+const Home = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData("user");
   console.log(user);
+  const token = storage.get("token");
+  console.log(token);
+
   return (
     <View>
-      <Text style={styles.headingLarge}>Greeting {user?.message}</Text>
+      <Text style={styles.headingLarge}>Greeting {user?.patientFirstName}</Text>
 
       <Image
         style={tw`w-80 h-48 ml-10 rounded-xl`}
@@ -121,8 +126,11 @@ const Home = ({ route, navigation }) => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {docterSpeciality.map((meal) => {
           return (
-            <View style={tw`justify-center items-center m-2 shadow-md`}>
-              <View key={meal.icon} style={styles.mealTypeView}>
+            <View
+              key={meal.id}
+              style={tw`justify-center items-center m-2 shadow-md`}
+            >
+              <View style={styles.mealTypeView}>
                 <Icon name={meal.icon} size={30} color={colors.primaryColor} />
               </View>
               <Text style={styles.mealTypeText}>{meal.name}</Text>
@@ -149,7 +157,7 @@ const Home = ({ route, navigation }) => {
       <View>
         <ScrollView style={tw`h-64`}>
           {docters.map((docter) => {
-            return <Docter key={docter.title} docter={docter} />;
+            return <Docter key={docter.id} docter={docter} />;
           })}
         </ScrollView>
       </View>
