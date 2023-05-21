@@ -19,8 +19,8 @@ export const createStyle = () => {
     },
     img: {
       marginTop: 50,
-      width: 400,
-      height: 400,
+      width: 700,
+      height: 700,
       resizeMode: "contain",
       position: "absolute",
       zIndex: 1,

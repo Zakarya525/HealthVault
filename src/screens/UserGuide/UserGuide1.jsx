@@ -29,7 +29,7 @@ const UserGuide1 = () => {
         {loading ? (
           <Loader />
         ) : (
-          <Image style={styles.img} source={require("../../images/dr1.png")} />
+          <Image style={styles.img} source={require("../../images/dr2.png")} />
         )}
       </View>
       <View style={styles.footer}>
