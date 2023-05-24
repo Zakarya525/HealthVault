@@ -5,7 +5,7 @@ const Search = ({ value, searchDocter }) => {
   return (
     <SafeAreaView>
       <TextInput
-        style={tw`text-base p-2 outline-slate-50 border m-1 rounded`}
+        style={tw`text-base p-2 border m-1 rounded`}
         placeholder={value}
         onChangeText={(text) => searchDocter(text)}
       />

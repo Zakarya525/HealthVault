@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import Appointment from "../screens/Appointment";
+import Appointment from "./Appointment/Appointment";
 import History from "../screens/History";
 import Articles from "../screens/Articles";
 import Profile from "../screens/Profile";

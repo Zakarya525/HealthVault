@@ -9,6 +9,7 @@ import Docter from "../components/Docter";
 import { styles } from "./styles";
 import { useQueryClient } from "react-query";
 import storage from "../storage";
+import { useNavigation } from "@react-navigation/native";
 
 const docters = [
   {
@@ -109,6 +110,7 @@ const docterSpeciality = [
 const Home = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData("user");
+  const navigation = useNavigation();
   console.log(user);
   const token = storage.get("token");
   console.log(token);

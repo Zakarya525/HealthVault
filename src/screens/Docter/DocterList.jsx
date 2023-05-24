@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, FlatList, StyleSheet, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Docter from "../components/Docter";
-import Search from "../components/filters/Search";
+import Docter from "../../components/Docter";
+import Search from "../../components/filters/Search";
 import { TouchableOpacity } from "react-native";
-import { colors } from "../utils";
+import { colors } from "../../utils";
 
 const docters = [
   {

@@ -22,13 +22,16 @@ export const Login = () => {
   const queryClient = useQueryClient();
 
   const handleLogin = async (values) => {
-    const response = await loginUser({
-      cnic: values.CNIC,
-      password: values.password,
+    navigation.navigate("BottomNavigation", {
+      screen: "Home",
     });
-    const data = await response.json();
-    console.log("This is the data from Server: ", data);
-    queryClient.invalidateQueries("user");
+    // const response = await loginUser({
+    //   cnic: values.CNIC,
+    //   password: values.password,
+    // });
+    // const data = await response.json();
+    // console.log("This is the data from Server: ", data);
+    // queryClient.invalidateQueries("user");
   };
 
   const formatCNIC = (cnic) => {
