@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const BookAppointment = () => {
+  const navigation = useNavigation();
+
   return (
-    <View>
-      <TouchableOpacity style={styles} onPress={() => navigation.goBack()}>
-        <Icon name="arrow-left" size={20} color="black" />
+    <>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Button title="Go Back"></Button>
       </TouchableOpacity>
-      <Text>BookAppointment</Text>
-    </View>
+      <View>
+        <Text>BookAppointment</Text>
+      </View>
+    </>
   );
 };
 

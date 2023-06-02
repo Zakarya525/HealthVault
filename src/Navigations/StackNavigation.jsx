@@ -9,56 +9,11 @@ import { UserGuide1, UserGuide2, UserGuide3 } from "../screens/UserGuide";
 import BottomNavigation from "./BottomNavigation";
 import { Login } from "../screens/Authentication";
 import { Register } from "../screens/Authentication/Register";
-import { useQueryClient, useQuery } from "react-query";
-import storage from "../storage";
 import BookAppointment from "./Appointment/BookAppointment";
 
-const navigationRef = createNavigationContainerRef();
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
-  const [token, setToken] = useState("i");
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const getToken = async () => {
-      const token = await storage.get("token");
-      if (token) {
-        setToken(token);
-        queryClient.setQueryData("token", token);
-      }
-    };
-
-    getToken();
-  }, [queryClient]);
-
-  // const {
-  //   data: user,
-  //   isLoading,
-  //   error,
-  // } = useQuery(
-  //   "user",
-  //   async () => {
-  //     const response = await fetch(
-  //       "https://polyclinic-server.chainspair.com/auth/currentuser",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     return data.user;
-  //   },
-  //   {
-  //     enabled: !!token,
-  //   }
-  // );
-
-  // if (isLoading) {
-  //   return <Splash />;
-  // }
-
   return (
     <Stack.Navigator
       initialRouteName="Splash"

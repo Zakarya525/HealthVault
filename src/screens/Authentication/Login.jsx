@@ -1,16 +1,16 @@
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
-import { useQueryClient, useMutation } from "react-query";
-import { loginUser } from "../../services/user/api";
+import { useAuth } from "../../context/Authentication";
+import Loader from "../../components/Loader/Loader";
 
 const validationSchema = Yup.object().shape({
-  CNIC: Yup.string().required("CNIC is required"),
+  email: Yup.string().required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
@@ -19,46 +19,32 @@ const validationSchema = Yup.object().shape({
 export const Login = () => {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const queryClient = useQueryClient();
+  const { isLoading, signIn } = useAuth();
+
+  if (isLoading) return <Loader />;
+
+  const formatEmail = (email) => {
+    // Perform any desired email formatting logic here
+    return email.trim().toLowerCase();
+  };
 
   const handleLogin = async (values) => {
+    console.log(values);
+    signIn(values);
     navigation.navigate("BottomNavigation", {
       screen: "Home",
     });
-    // const response = await loginUser({
-    //   cnic: values.CNIC,
-    //   password: values.password,
-    // });
-    // const data = await response.json();
-    // console.log("This is the data from Server: ", data);
-    // queryClient.invalidateQueries("user");
-  };
-
-  const formatCNIC = (cnic) => {
-    const digitsOnly = cnic.replace(/\D/g, "");
-    const formattedCNIC = digitsOnly.replace(
-      /^(\d{5})(\d{7})(\d{1})$/,
-      "$1-$2-$3"
-    );
-
-    return formattedCNIC;
   };
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-  const mutation = useMutation(handleLogin, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("user");
-    },
-  });
-
   return (
     <Formik
-      initialValues={{ CNIC: "", password: "" }}
+      initialValues={{ email: "", password: "" }}
       validationSchema={validationSchema}
-      onSubmit={mutation.mutate}
+      onSubmit={handleLogin}
     >
       {(formikProps) => (
         <View style={styles.container}>
@@ -72,15 +58,15 @@ export const Login = () => {
             <Icon name="user" size={21} color="gray" />
             <TextInput
               style={styles.input}
-              placeholder="CNIC"
-              onChangeText={(cnic) =>
-                formikProps.setFieldValue("CNIC", formatCNIC(cnic))
+              placeholder="Email"
+              onChangeText={(email) =>
+                formikProps.setFieldValue("email", formatEmail(email))
               }
-              value={formikProps.values.CNIC}
+              value={formikProps.values.email}
             />
           </View>
-          {formikProps.errors.CNIC && formikProps.touched.CNIC && (
-            <Text style={styles.error}>{formikProps.errors.CNIC}</Text>
+          {formikProps.errors.email && formikProps.touched.email && (
+            <Text style={styles.error}>{formikProps.errors.email}</Text>
           )}
           <View style={styles.inputContainer}>
             <Icon name="lock" size={21} color="gray" />

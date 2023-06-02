@@ -7,9 +7,8 @@ import uuid from "react-native-uuid";
 import { colors } from "../utils";
 import Docter from "../components/Docter";
 import { styles } from "./styles";
-import { useQueryClient } from "react-query";
-import storage from "../storage";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../context/Authentication";
 
 const docters = [
   {
@@ -108,16 +107,12 @@ const docterSpeciality = [
 ];
 
 const Home = () => {
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData("user");
   const navigation = useNavigation();
-  console.log(user);
-  const token = storage.get("token");
-  console.log(token);
+  const { user } = useAuth();
 
   return (
     <View>
-      <Text style={styles.headingLarge}>Greeting {user?.patientFirstName}</Text>
+      <Text style={styles.headingLarge}>Greeting {user.email}</Text>
 
       <Image
         style={tw`w-80 h-48 ml-10 rounded-xl`}
