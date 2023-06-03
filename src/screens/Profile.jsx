@@ -1,72 +1,20 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import tw from "twrnc";
-import Icon from "react-native-vector-icons/FontAwesome";
-import uuid from "react-native-uuid";
+
 import { colors } from "../utils";
 import MIcon from "react-native-vector-icons/FontAwesome5";
+import { useAuth } from "../context/Authentication";
 import { useNavigation } from "@react-navigation/native";
-import Article from "../components/Article";
-import { FlatList } from "react-native";
-
-const articles = [
-  {
-    id: uuid.v4(),
-    title:
-      "COVID-19 was a Top Cause of Death in 2020 and 2021. Even for Young People",
-    description:
-      "Adding salt to your food too much may affect your health badly...",
-    likes: "332",
-  },
-  {
-    id: uuid.v4(),
-    title: "Study Finds Being 'Hungaryy' for is a Real thing",
-    description: "Keep your blood pressure in check...",
-    likes: "332K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Why Childhood obesity Rates are Rising and What are that",
-    description: "Control your cholesterol...",
-    likes: "33K",
-  },
-  {
-    id: uuid.v4(),
-    title: "To Know Something is Best To Spend Something, Do you Know",
-    description: "Reduce your blood sugar...",
-    likes: "3K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Its Going to be Crazy forrrrrr Being Nothing in the Last Time",
-    description: "Stay within a healthy weight.",
-    likes: "32K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Why you are Now Rockinggg With the Best",
-    description:
-      "Adding salt to your food too much may affect your health badly...",
-    likes: "52K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Safder Shan",
-    description:
-      "Adding salt to your food too much may affect your health badly...",
-    likes: "500K",
-  },
-];
 
 const Profile = () => {
+  const { logOut } = useAuth();
+  const navigation = useNavigation();
+
+  const handleLogout = () => {
+    logOut();
+    navigation.navigate("Login");
+  };
   return (
     <View>
       <View style={styles.container}>
@@ -86,8 +34,10 @@ const Profile = () => {
         <Text style={styles.mealTypeText}>John Deo</Text>
         <Text style={styles.mealTypeText}>+92 348 9206631</Text>
       </View>
+      <TouchableOpacity style={styles.button} onPress={handleLogout}>
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
 
-      <View></View>
       <StatusBar style="auto" />
     </View>
   );
@@ -143,6 +93,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flexDirection: "row",
     alignItems: "center",
+  },
+  button: {
+    width: "80%",
+    height: 50,
+    borderRadius: 20,
+    backgroundColor: colors.primaryColor,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 30,
+  },
+  buttonText: {
+    fontFamily: "Urbanist_600SemiBold",
+    color: "white",
+    fontSize: 18,
   },
   scrollView: {
     height: 500,

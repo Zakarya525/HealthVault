@@ -9,6 +9,7 @@ import Docter from "../components/Docter";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/Authentication";
+import Loader from "../components/Loader/Loader";
 
 const docters = [
   {
@@ -108,7 +109,9 @@ const docterSpeciality = [
 
 const Home = () => {
   const navigation = useNavigation();
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) return <Loader />;
 
   return (
     <View>
