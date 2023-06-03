@@ -54,33 +54,37 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Get user data
-  // useEffect(() => {
-  //   setLoading();
-  //   const handleAutoLogin = () => {
-  //     getAuthToken().then((token) => {
-  //       if (!token) {
-  //         return;
-  //       }
+  useEffect(() => {
+    setLoading();
+    const handleAutoLogin = () => {
+      getAuthToken().then((token) => {
+        console.log(token);
+        if (!token) {
+          return;
+        }
 
-  //       signInWithCustomToken(FIREBASE_AUTH, token)
-  //         .then((userCredential) => {
-  //           const user = userCredential.user;
-  //           if (user) {
-  //             dispatch({
-  //               type: "GET_USER",
-  //               payload: user,
-  //               token,
-  //             });
-  //           }
-  //         })
-  //         .catch((error) => {
-  //           console.log("Auto login failed:", error);
-  //         });
-  //     });
-  //   };
+        signInWithCustomToken(FIREBASE_AUTH, token)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            if (user) {
+              dispatch({
+                type: "GET_USER",
+                payload: user,
+                token,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log("Auto login failed:", error);
+            dispatch({
+              type: "SET_LOADING_FALSE",
+            });
+          });
+      });
+    };
 
-  //   handleAutoLogin();
-  // }, []);
+    handleAutoLogin();
+  }, []);
 
   // Log out user
   const logOut = async () => {

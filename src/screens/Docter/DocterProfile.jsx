@@ -11,7 +11,7 @@ const DocterProfile = ({ route }) => {
   const { name } = route.params;
 
   const handleClick = () => {
-    navigation.navigate("BookAppointment");
+    navigation.navigate("BookAppointment", { doctor: name });
   };
 
   return (
