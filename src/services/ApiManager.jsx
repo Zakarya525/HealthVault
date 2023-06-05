@@ -1,9 +1,8 @@
 import axios from "axios";
 
 const ApiManager = axios.create({
-  baseURL: "https://polyclinic-server.chainspair.com/",
-  responseType: "json",
-  withCredentials: true,
+  baseURL: "http://localhost:8000/api/auth",
+  timeout: 5000,
 });
 
 export default ApiManager;

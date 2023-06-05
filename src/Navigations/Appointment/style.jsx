@@ -1,79 +1,77 @@
 import { colors } from "../../utils";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const screenWidth = Dimensions.get("window").width;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#fbfcf8",
   },
   title: {
     fontSize: 24,
     fontFamily: "Urbanist_700Bold",
-    marginVertical: 20,
+    marginVertical: 0.09 * screenWidth,
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "90%",
-    marginBottom: 20,
-    borderRadius: 10,
-    backgroundColor: "#fbfcf8",
-    paddingHorizontal: 20,
+    flex: 3,
+    borderRadius: 20,
+    paddingHorizontal: 0.09 * screenWidth,
+    marginVertical: 0.04 * screenWidth,
+    backgroundColor: colors.aliceblue,
   },
-  input: {
-    flex: 1,
-    height: 50,
-    marginLeft: 10,
-    borderWidth: 0,
+  calendar: {
+    backgroundColor: colors.aliceblue,
+    height: 0.4 * screenWidth,
+  },
+  timeContainer: {
+    flex: 2,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    marginBottom: 0.04 * screenWidth,
+  },
+  timeButton: {
+    borderRadius: 15,
+    paddingHorizontal: 0.04 * screenWidth,
+    paddingVertical: 0.02 * screenWidth,
+    marginVertical: 0.02 * screenWidth,
+    backgroundColor: "#ffffff",
+    elevation: 2,
+    width: 0.3 * screenWidth, // Adjust the width based on the desired number of buttons per row
+  },
+
+  selectedTimeButton: {
+    backgroundColor: colors.primaryColor,
+  },
+  timeButtonText: {
+    fontSize: 0.04 * screenWidth,
+    color: colors.primaryColor,
+    fontFamily: "Urbanist_600SemiBold",
+  },
+  selectedTimeButtonText: {
+    color: "#ffffff",
+  },
+  error: {
+    color: "red",
+    marginBottom: 0.02 * screenWidth,
+    fontFamily: "Urbanist_500Medium",
+    fontSize: 0.04 * screenWidth,
   },
   button: {
     width: "80%",
-    height: 50,
-    borderRadius: 20,
+    height: 0.12 * screenWidth,
+    borderRadius: 0.05 * screenWidth,
     backgroundColor: colors.primaryColor,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 30,
+    marginBottom: 0.06 * screenWidth,
   },
   buttonText: {
     fontFamily: "Urbanist_600SemiBold",
     color: "white",
-    fontSize: 18,
-  },
-  forgotPassword: {
-    marginRight: 10,
-    marginBottom: 20,
-  },
-  forgotPasswordText: {
-    fontFamily: "Urbanist_500Medium",
-    color: colors.primaryColor,
-  },
-  divider: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  orContinueWith: {
-    color: "gray",
-    fontSize: 16,
-    marginHorizontal: 10,
-  },
-  socialLogin: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 20,
-  },
-  socialButton: {
-    marginHorizontal: 10,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "#ddd",
-    padding: 15,
-  },
-  socialButtonIcon: {
-    width: 40,
-    height: 40,
+    fontSize: 0.045 * screenWidth,
   },
 });

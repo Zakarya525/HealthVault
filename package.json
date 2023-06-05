@@ -28,6 +28,7 @@
     "react-native": "0.71.8",
     "react-native-animated-dots": "^0.0.4",
     "react-native-animated-loader": "^1.0.0",
+    "react-native-calendars": "^1.1298.0",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^3.4.3",
     "react-native-indicators": "^0.17.0",

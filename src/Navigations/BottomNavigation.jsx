@@ -13,7 +13,11 @@ const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
@@ -37,19 +41,6 @@ const BottomNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Articles"
-        component={Articles}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="format-page-break"
-              color={color}
-              size={26}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="History"
         component={History}
         options={{
@@ -62,6 +53,20 @@ const BottomNavigation = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="Articles"
+        component={Articles}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="format-page-break"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="Profile"
         component={Profile}

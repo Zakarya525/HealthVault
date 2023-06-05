@@ -30,9 +30,15 @@ const UserGuide3 = () => {
         )}
       </View>
       <View style={styles.footer}>
-        <PrimaryHeader text="Let's start living healthy and well with us right now!" />
-        <Pagination count={3} activeIndex={2} />
-        <PrimaryButton title="Get Started" onPress={onPress} />
+        <View style={styles.head}>
+          <PrimaryHeader text="Let's start living healthy and well with us right now!" />
+        </View>
+        <View style={styles.med}>
+          <Pagination count={3} activeIndex={2} />
+        </View>
+        <View style={styles.foot}>
+          <PrimaryButton title="Get Started" onPress={onPress} />
+        </View>
       </View>
     </View>
   );

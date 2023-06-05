@@ -10,7 +10,7 @@ import { useAuth } from "../../context/Authentication";
 import Loader from "../../components/Loader/Loader";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required("Email is required"),
+  cnic: Yup.string().required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
@@ -21,16 +21,21 @@ export const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { isLoading, signIn } = useAuth();
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
-  const formatEmail = (email) => {
-    // Perform any desired email formatting logic here
-    return email.trim().toLowerCase();
+  const formatCNIC = (cnic) => {
+    const digitsOnly = cnic.replace(/\D/g, "");
+    const formattedCNIC = digitsOnly.replace(
+      /^(\d{5})(\d{7})(\d{1})$/,
+      "$1-$2-$3"
+    );
+
+    return formattedCNIC;
   };
 
   const handleLogin = async (values) => {
     console.log(values);
-    signIn(values);
+    // signIn(values);
     navigation.navigate("BottomNavigation", {
       screen: "Home",
     });
@@ -42,7 +47,7 @@ export const Login = () => {
 
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ cnic: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={handleLogin}
     >
@@ -58,15 +63,15 @@ export const Login = () => {
             <Icon name="user" size={21} color="gray" />
             <TextInput
               style={styles.input}
-              placeholder="Email"
-              onChangeText={(email) =>
-                formikProps.setFieldValue("email", formatEmail(email))
+              placeholder="CNIC"
+              onChangeText={(cnic) =>
+                formikProps.setFieldValue("cnic", formatCNIC(cnic))
               }
-              value={formikProps.values.email}
+              value={formikProps.values.cnic}
             />
           </View>
-          {formikProps.errors.email && formikProps.touched.email && (
-            <Text style={styles.error}>{formikProps.errors.email}</Text>
+          {formikProps.errors.cnic && formikProps.touched.cnic && (
+            <Text style={styles.error}>{formikProps.errors.cnic}</Text>
           )}
           <View style={styles.inputContainer}>
             <Icon name="lock" size={21} color="gray" />

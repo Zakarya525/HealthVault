@@ -1,20 +1,16 @@
+import axios from "axios";
 import ApiManager from "../ApiManager";
 
-export const loginUser = async ({ cnic, password }) => {
+export const loginUser = async (data) => {
+  console.log("LoginUser");
+  const apiUrl = "http://localhost:8000/api/auth/patientlogin";
   try {
-    console.log("I am in Login User Sir", cnic, password);
-    return await ApiManager("signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: JSON.stringify({
-        patientCNIC: cnic,
-        patientPassword: password,
-      }),
+    const response = await axios.post(apiUrl, data, {
+      withCredentials: true,
     });
+    console.log(response.data);
   } catch (error) {
-    console.log(`Failed: ${error}`);
+    alert(error);
   }
 };
 
