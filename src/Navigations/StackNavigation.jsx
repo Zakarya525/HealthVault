@@ -17,22 +17,25 @@ const StackNavigation = () => {
   const { token, isLoading } = useAuth();
   // if (isLoading) return <Loader />;
   return (
-    <Stack.Navigator
-      initialRouteName="Splash"
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="Splash" component={Splash} />
-      <Stack.Screen name="UserGuide1" component={UserGuide1} />
-      <Stack.Screen name="UserGuide2" component={UserGuide2} />
-      <Stack.Screen name="UserGuide3" component={UserGuide3} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Register" component={Register} />
-
-      <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
-      <Stack.Screen name="BookAppointment" component={BookAppointment} />
-      <Stack.Screen name="DocterProfile" component={DocterProfile} />
-      <Stack.Screen name="DocterList" component={DocterList} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {token === "" ? (
+        <>
+          <Stack.Screen name="Splash" component={Splash} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="UserGuide1" component={UserGuide1} />
+          <Stack.Screen name="UserGuide2" component={UserGuide2} />
+          <Stack.Screen name="UserGuide3" component={UserGuide3} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
+          <Stack.Screen name="BookAppointment" component={BookAppointment} />
+          <Stack.Screen name="DocterProfile" component={DocterProfile} />
+          <Stack.Screen name="DocterList" component={DocterList} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

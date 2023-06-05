@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const ApiManager = axios.create({
-  baseURL: "http://localhost:8000/api/auth",
-  timeout: 5000,
+  baseURL: "http://192.168.10.4:8000/api/auth/",
 });
 
 export default ApiManager;

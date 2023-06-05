@@ -8,15 +8,36 @@ import { useAuth } from "../context/Authentication";
 import { useNavigation } from "@react-navigation/native";
 
 const Profile = () => {
-  const { logOut } = useAuth();
+  const { logOut, user } = useAuth();
   const navigation = useNavigation();
 
   const handleLogout = () => {
     logOut();
     navigation.navigate("Login");
   };
+
+  const renderUserData = () => {
+    const userData = [
+      { label: "Address", icon: "home", value: user.address },
+      { label: "City", icon: "map-marker-alt", value: user.city },
+      { label: "CNIC", icon: "id-card", value: user.cnic },
+      { label: "Email", icon: "envelope", value: user.email },
+      { label: "Mobile", icon: "phone", value: user.mobile },
+    ];
+
+    return userData.map((item, index) => (
+      <View style={styles.userDataContainer} key={index}>
+        <MIcon name={item.icon} size={20} color={colors.primaryColor} />
+        <View style={styles.userDataTextContainer}>
+          <Text style={styles.userDataLabel}>{item.label}</Text>
+          <Text style={styles.userDataValue}>{item.value}</Text>
+        </View>
+      </View>
+    ));
+  };
+
   return (
-    <View>
+    <View styles={styles.mainContainer}>
       <View style={styles.container}>
         <MIcon
           name="hand-holding-medical"
@@ -31,62 +52,58 @@ const Profile = () => {
           style={styles.displayPic}
           source={require("../images/dr4.jpg")}
         />
-        <Text style={styles.mealTypeText}>John Deo</Text>
-        <Text style={styles.mealTypeText}>+92 348 9206631</Text>
+        <Text
+          style={styles.nameText}
+        >{`${user.firstName} ${user.lastName}`}</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleLogout}>
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
 
+      {renderUserData()}
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <MIcon name="sign-out-alt" size={20} color="red" />
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
   headingLarge: {
     fontSize: 25,
     fontFamily: "Urbanist_700Bold",
     marginTop: 30,
     marginBottom: 20,
     marginStart: 10,
+    marginLeft: 10,
   },
-
-  headingMedium: {
-    fontSize: 20,
-    fontFamily: "Urbanist_700Bold",
-    marginTop: 10,
-    marginStart: 10,
-    marginBottom: 5,
-  },
-
-  card: {
-    backgroundColor: "#fff",
-    width: 270,
-    height: 100,
-    marginTop: -80,
-    marginStart: 43,
-    marginEnd: 30,
-    borderRadius: 15,
-  },
-
-  innerTextStyle: {
+  nameText: {
     fontFamily: "Urbanist_700Bold",
     fontSize: 20,
-    textAlign: "center",
-    marginTop: 30,
+    margin: 10,
   },
-  mealTypeView: {
-    justifyContent: "center",
+  userDataContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    width: 60,
-    height: 60,
+    alignContent: "center",
+    marginVertical: 10,
+    marginHorizontal: 20,
   },
-  mealTypeText: {
+  userDataTextContainer: {
+    marginLeft: 10,
+  },
+  userDataLabel: {
     fontFamily: "Urbanist_700Bold",
-    marginTop: 10,
+    fontSize: 16,
+  },
+  userDataValue: {
+    fontFamily: "Urbanist_400Regular",
+    fontSize: 14,
   },
   container: {
     marginTop: 20,
@@ -94,19 +111,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  button: {
-    width: "80%",
-    height: 50,
-    borderRadius: 20,
-    backgroundColor: colors.primaryColor,
+  logoutButton: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 30,
+    marginTop: 20,
+    marginStart: 20,
   },
-  buttonText: {
-    fontFamily: "Urbanist_600SemiBold",
-    color: "white",
-    fontSize: 18,
+  logoutButtonText: {
+    fontFamily: "Urbanist_400Regular",
+    color: "red",
+    fontSize: 16,
+    marginLeft: 10,
   },
   scrollView: {
     height: 500,
@@ -116,7 +131,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
-
   displayPic: {
     width: 100,
     height: 100,

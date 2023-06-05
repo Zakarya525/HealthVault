@@ -115,7 +115,7 @@ const Home = () => {
 
   return (
     <View>
-      <Text style={styles.headingLarge}>Greeting {user.email}</Text>
+      <Text style={styles.headingLarge}>Greeting {user.firstName}</Text>
 
       <Image
         style={tw`w-80 h-48 ml-10 rounded-xl`}

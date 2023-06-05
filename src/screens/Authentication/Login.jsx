@@ -35,7 +35,7 @@ export const Login = () => {
 
   const handleLogin = async (values) => {
     console.log(values);
-    // signIn(values);
+    signIn(values);
     navigation.navigate("BottomNavigation", {
       screen: "Home",
     });

@@ -1,29 +1,29 @@
-import axios from "axios";
 import ApiManager from "../ApiManager";
 
 export const loginUser = async (data) => {
-  console.log("LoginUser");
-  const apiUrl = "http://localhost:8000/api/auth/patientlogin";
+  const endpoint = "patientlogin";
   try {
-    const response = await axios.post(apiUrl, data, {
-      withCredentials: true,
-    });
+    const response = await ApiManager.post(endpoint, data);
     console.log(response.data);
+    return response.data; // Return the response data
   } catch (error) {
-    alert(error);
+    console.error(error);
+    throw new Error(error.message); // Throw an error if the request fails
   }
 };
 
 export const getUserMe = async (token) => {
   try {
-    return await ApiManager("/auth/currentuser", {
-      method: "GET",
+    const config = {
       headers: {
-        Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
+    };
+
+    const response = await ApiManager.get("patient", config);
+    return response.data;
   } catch (error) {
-    console.log(`Failed: ${error}`);
+    console.error(error);
+    throw new Error(error.message);
   }
 };
