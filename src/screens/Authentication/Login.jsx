@@ -21,7 +21,7 @@ export const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { isLoading, signIn } = useAuth();
 
-  // if (isLoading) return <Loader />;
+  if (isLoading) return <Loader />;
 
   const formatCNIC = (cnic) => {
     const digitsOnly = cnic.replace(/\D/g, "");

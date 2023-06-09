@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useRef, useReducer } from "react";
 
 import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
@@ -13,8 +13,9 @@ import { getUserMe, loginUser } from "../../services/user/api";
 export const AuthProvider = ({ children }) => {
   const initialState = {
     user: {},
-    isLoading: false,
+    isLoading: true, // Set isLoading to true initially
     token: "",
+    isLoggedIn: false,
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
@@ -27,8 +28,9 @@ export const AuthProvider = ({ children }) => {
     if (res?.code === "authenticated") {
       saveAuthToken(res.jwt);
       dispatch({
-        type: "LOGIN_USER_AND_GET_TOKEN",
+        type: "LOGIN_USER",
         token: res.jwt,
+        payload: res.items,
       });
     } else {
       console.log("User not found");
@@ -39,32 +41,40 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Get user data
+  const isMountedRef = useRef(false);
   useEffect(() => {
+    isMountedRef.current = true;
     setLoading();
     getAuthToken().then((token) => {
-      console.log("This is token", token);
+      if (!token) {
+        console.log("No token is present");
+        dispatch({ type: "SET_LOGGEDIN_FALSE" });
+        console.log(state.isLoggedIn);
+        return;
+      }
       getUserMe(token).then((res) => {
-        if (res?.code === "authenticated") {
+        if (isMountedRef.current && res?.code === "authenticated") {
           dispatch({
             type: "GET_USER",
             payload: res.items,
             token: token,
           });
         }
+        dispatch({ type: "SET_LOADING_FALSE" });
       });
     });
-  }, [state.token]);
+
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   // Log out user
   const logOut = async () => {
     try {
       await deleteAuthToken();
       dispatch({ type: "LOGOUT" });
-      console.log(
-        "Logged Out! and the token is: ",
-        getAuthToken(),
-        state.isLoading
-      );
+      console.log("User logged out successfully.");
     } catch (error) {
       console.log("Logout failed:", error);
     }

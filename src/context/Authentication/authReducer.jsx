@@ -6,14 +6,16 @@ export default (state, action) => {
         user: action.payload,
         token: action.token,
         isLoading: false,
+        isLoggedIn: true,
       };
 
-    case "LOGIN_USER_AND_GET_TOKEN":
+    case "LOGIN_USER":
       return {
         ...state,
         token: action.token,
-        user: action.user,
+        user: action.payload,
         isLoading: false,
+        isLoggedIn: true,
       };
 
     case "SET_USER":
@@ -29,16 +31,11 @@ export default (state, action) => {
         isLoading: true,
       };
 
-    case "SET_THEME":
-      return {
-        ...state,
-        theme: action.payload,
-      };
-
     case "LOGOUT":
       return {
         ...state,
         isLoading: false,
+        isLoggedIn: false,
         token: "",
         user: {},
       };
@@ -46,6 +43,12 @@ export default (state, action) => {
     case "SET_LOADING_FALSE":
       return {
         ...state,
+        isLoading: false,
+      };
+    case "SET_LOGGEDIN_FALSE":
+      return {
+        ...state,
+        isLoggedIn: false,
         isLoading: false,
       };
   }
