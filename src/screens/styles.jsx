@@ -45,4 +45,15 @@ export const styles = StyleSheet.create({
     fontFamily: "Urbanist_700Bold",
     marginTop: 10,
   },
+  alertContainer: {
+    backgroundColor: "red",
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+  },
+  alertText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Urbanist_700Bold",
+  },
 });

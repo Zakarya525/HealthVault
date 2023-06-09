@@ -5,64 +5,12 @@ import tw from "twrnc";
 import Icon from "react-native-vector-icons/FontAwesome";
 import uuid from "react-native-uuid";
 import { colors } from "../utils";
-import Docter from "../components/Docter";
+import Doctor from "../components/Doctor";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/Authentication";
 import Loader from "../components/Loader/Loader";
-
-const docters = [
-  {
-    id: uuid.v4(),
-    title: "Dr Khalid Mehmood",
-    likes: "332",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Islam Shah",
-    likes: "332K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Mehmoona",
-    likes: "33K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Afzal Shan",
-    likes: "3K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Waseeq Ahmad",
-    likes: "32K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Noreen",
-    likes: "52K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Safder Shan",
-    likes: "500K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Ahmad",
-    likes: "3K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Wali Akhter",
-    likes: "7K",
-  },
-  {
-    id: uuid.v4(),
-    title: "Dr Yasir Mehmood",
-    likes: "7K",
-  },
-];
+import { useDoctor } from "../context/Doctors";
 
 const docterSpeciality = [
   {
@@ -110,7 +58,7 @@ const docterSpeciality = [
 const Home = () => {
   const navigation = useNavigation();
   const { user, isLoading } = useAuth();
-
+  const { doctors, isAlert } = useDoctor();
   if (isLoading) return <Loader />;
 
   return (
@@ -122,7 +70,7 @@ const Home = () => {
         source={require("../images/banner.jpg")}
       />
 
-      <Text style={styles.headingMedium}>Docter Speciality</Text>
+      <Text style={styles.headingMedium}>Doctor Speciality</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {docterSpeciality.map((meal) => {
           return (
@@ -140,7 +88,7 @@ const Home = () => {
       </ScrollView>
 
       <View style={tw`flex-row justify-between`}>
-        <Text style={styles.headingMedium}>Top Docters</Text>
+        <Text style={styles.headingMedium}>Top Doctors</Text>
         <TouchableOpacity onPress={() => navigation.navigate("DocterList")}>
           <Text
             style={{
@@ -156,10 +104,15 @@ const Home = () => {
       </View>
       <View>
         <ScrollView style={tw`h-64`}>
-          {docters.map((docter) => {
-            return <Docter key={docter.id} docter={docter} />;
+          {doctors.map((doctor) => {
+            return <Doctor key={doctor._id} doctor={doctor} />;
           })}
         </ScrollView>
+        {isAlert && (
+          <View style={styles.alertContainer}>
+            <Text style={styles.alertText}>Try Again Later</Text>
+          </View>
+        )}
       </View>
       <StatusBar style="auto" />
     </View>
