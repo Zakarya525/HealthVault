@@ -5,14 +5,11 @@ import { useDoctor } from "../context/Doctors";
 
 function Doctor({ doctor }) {
   const navigation = useNavigation();
-  const { getDoctorById, isAlert } = useDoctor();
-  console.log(isAlert);
+  const { getDoctorById } = useDoctor();
 
   const handleClick = () => {
     getDoctorById(doctor._id);
-    if (!isAlert) {
-      navigation.navigate("DoctorProfile");
-    }
+    navigation.navigate("DoctorProfile");
   };
 
   return (

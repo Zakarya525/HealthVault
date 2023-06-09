@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, FlatList, StyleSheet, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Docter from "../../components/Docter";
+import Doctor from "../../components/Doctor";
 import Search from "../../components/filters/Search";
 import { TouchableOpacity } from "react-native";
 import { colors } from "../../utils";
@@ -105,7 +105,7 @@ export default function DoctorList({ navigation }) {
       <Search value="Search Docters" searchDocter={searchDocter} />
       <FlatList
         data={newItems}
-        renderItem={({ item }) => <Docter docter={item} />}
+        renderItem={({ item }) => <Doctor docter={item} />}
       />
       <StatusBar style="auto" />
     </View>

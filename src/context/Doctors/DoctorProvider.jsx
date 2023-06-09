@@ -9,7 +9,6 @@ export const DoctorProvider = ({ children }) => {
   const initialState = {
     doctors: [],
     doctor: {},
-    isAlert: false,
   };
   const [state, dispatch] = useReducer(DoctorReducer, initialState);
 

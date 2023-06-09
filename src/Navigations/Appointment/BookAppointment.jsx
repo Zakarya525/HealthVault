@@ -1,24 +1,13 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  Pressable,
-  ViewShot,
-  Button,
-} from "react-native";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "../../context/Authentication";
-import { useAppointment } from "../../context/Appointments";
 import { Calendar } from "react-native-calendars";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import * as Permissions from "expo-permissions";
 import { colors } from "../../utils";
 
 const validationSchema = Yup.object().shape({
@@ -38,11 +27,8 @@ const customHours = [
   "05:00 PM",
 ];
 
-const BookAppointment = ({ route }) => {
+const BookAppointment = () => {
   const navigation = useNavigation();
-  const { doctor } = route.params;
-  const { setAppointment } = useAppointment();
-  const { user } = useAuth();
   const [selectedTime, setSelectedTime] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const viewRef = useRef(null);
@@ -77,6 +63,7 @@ const BookAppointment = ({ route }) => {
 
   const handleBookAppointment = async (data) => {
     setModalVisible(true);
+    console.log(data);
     // setAppointment({ ...data, doctor });
   };
 

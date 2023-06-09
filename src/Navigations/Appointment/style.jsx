@@ -116,4 +116,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 10,
   },
+  modalButtonsContainer: {
+    flexDirection: "row",
+  },
 });

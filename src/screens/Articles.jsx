@@ -9,10 +9,8 @@ import {
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import tw from "twrnc";
-import Icon from "react-native-vector-icons/FontAwesome";
 import uuid from "react-native-uuid";
 import { colors } from "../utils";
-import Docter from "../components/Docter";
 import MIcon from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import Article from "../components/Article";

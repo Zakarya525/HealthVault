@@ -108,11 +108,6 @@ const Home = () => {
             return <Doctor key={doctor._id} doctor={doctor} />;
           })}
         </ScrollView>
-        {isAlert && (
-          <View style={styles.alertContainer}>
-            <Text style={styles.alertText}>Try Again Later</Text>
-          </View>
-        )}
       </View>
       <StatusBar style="auto" />
     </View>
