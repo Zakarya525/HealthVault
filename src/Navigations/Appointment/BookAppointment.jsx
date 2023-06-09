@@ -1,14 +1,24 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  Pressable,
+  ViewShot,
+  Button,
+} from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/Authentication";
 import { useAppointment } from "../../context/Appointments";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Calendar } from "react-native-calendars";
+import { captureRef } from "react-native-view-shot";
+import * as MediaLibrary from "expo-media-library";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import * as Permissions from "expo-permissions";
 import { colors } from "../../utils";
 
 const validationSchema = Yup.object().shape({
@@ -34,6 +44,27 @@ const BookAppointment = ({ route }) => {
   const { setAppointment } = useAppointment();
   const { user } = useAuth();
   const [selectedTime, setSelectedTime] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const viewRef = useRef(null);
+
+  const saveModalImage = async () => {
+    try {
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+
+      if (status === "granted") {
+        const uri = await captureRef(viewRef, {
+          format: "jpg",
+          quality: 1,
+        });
+        await MediaLibrary.saveToLibraryAsync(uri);
+        console.log("Image saved to gallery");
+      } else {
+        console.log("Permission denied to access media library");
+      }
+    } catch (error) {
+      console.log("Error saving image:", error);
+    }
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -45,7 +76,7 @@ const BookAppointment = ({ route }) => {
   };
 
   const handleBookAppointment = async (data) => {
-    console.log(data);
+    setModalVisible(true);
     // setAppointment({ ...data, doctor });
   };
 
@@ -58,6 +89,10 @@ const BookAppointment = ({ route }) => {
       {(formikProps) => (
         <View style={styles.container}>
           <Text style={styles.title}>Book an Appointment</Text>
+          <TouchableOpacity
+            style={{ marginLeft: 10, marginBottom: 10, color: "black" }}
+            onPress={() => navigation.goBack()}
+          ></TouchableOpacity>
 
           <TouchableOpacity
             style={styles.inputContainer}
@@ -122,6 +157,39 @@ const BookAppointment = ({ route }) => {
           >
             <Text style={styles.buttonText}>Book Appointment</Text>
           </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(false);
+            }}
+          >
+            <View style={styles.modalContainer}>
+              <View ref={viewRef} style={styles.modalContent}>
+                <Text style={styles.modalText}>Appointment Booked!</Text>
+                <Text style={styles.modalText}>
+                  Your appointment has been successfully booked.
+                </Text>
+                <View style={styles.modalButtonsContainer}>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={styles.modalButtonText}>OK</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={saveModalImage}
+                    style={styles.saveButton}
+                  >
+                    <AntDesign name="save" size={24} color="black" />
+                    <Text style={styles.saveButtonText}>Save Image</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       )}
     </Formik>

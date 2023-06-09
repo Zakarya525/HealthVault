@@ -6,20 +6,23 @@ const screenWidth = Dimensions.get("window").width;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fbfcf8",
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
     fontFamily: "Urbanist_700Bold",
-    marginVertical: 0.09 * screenWidth,
+    paddingVertical: 0.09 * screenWidth,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
   inputContainer: {
     flex: 3,
     borderRadius: 20,
     paddingHorizontal: 0.09 * screenWidth,
-    marginVertical: 0.04 * screenWidth,
+    paddingVertical: 0.04 * screenWidth,
     backgroundColor: colors.aliceblue,
   },
   calendar: {
@@ -32,6 +35,7 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     marginBottom: 0.04 * screenWidth,
+    paddingHorizontal: 10,
   },
   timeButton: {
     borderRadius: 15,
@@ -40,7 +44,7 @@ export const styles = StyleSheet.create({
     marginVertical: 0.02 * screenWidth,
     backgroundColor: "#ffffff",
     elevation: 2,
-    width: 0.3 * screenWidth, // Adjust the width based on the desired number of buttons per row
+    width: 0.3 * screenWidth,
   },
 
   selectedTimeButton: {
@@ -53,6 +57,7 @@ export const styles = StyleSheet.create({
   },
   selectedTimeButtonText: {
     color: "#ffffff",
+    elevation: 4,
   },
   error: {
     color: "red",
@@ -73,5 +78,42 @@ export const styles = StyleSheet.create({
     fontFamily: "Urbanist_600SemiBold",
     color: "white",
     fontSize: 0.045 * screenWidth,
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#ffffff",
+    padding: 20,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    fontFamily: "Urbanist_500Medium",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  modalButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 20,
+  },
+  modalButtonText: {
+    fontSize: 16,
+    fontFamily: "Urbanist_500Medium",
+    marginLeft: 5,
+  },
+  saveButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 20,
+    marginLeft: 10,
   },
 });
