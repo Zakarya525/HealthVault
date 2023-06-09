@@ -11,7 +11,7 @@ function Doctor({ doctor }) {
   const handleClick = () => {
     getDoctorById(doctor._id);
     if (!isAlert) {
-      navigation.navigate("DocterProfile");
+      navigation.navigate("DoctorProfile");
     }
   };
 

@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import tw from "twrnc";
 import { colors } from "../../utils";
 import { styles } from "./styles";
+import { useDoctor } from "../../context/Doctors";
+import Loader from "../../components/Loader/Loader";
 
-const DocterProfile = ({ route }) => {
+const DoctorProfile = () => {
   const navigation = useNavigation();
-  const { name } = route.params;
+  const { doctor, isLoading } = useDoctor();
+  const {
+    address,
+    city,
+    fullName,
+    speciality,
+    state,
+    mobile,
+    yearOfExperience,
+    _id,
+  } = doctor;
+
+  if (isLoading) return <Loader />;
 
   const handleClick = () => {
-    navigation.navigate("BookAppointment", { doctor: name });
+    navigation.navigate("BookAppointment");
   };
 
   return (
@@ -23,7 +37,7 @@ const DocterProfile = ({ route }) => {
         >
           <Icon name="arrow-left" size={20} color="black" />
         </TouchableOpacity>
-        <Text style={styles.doctorName}>{name}</Text>
+        <Text style={styles.doctorName}>{fullName}</Text>
       </View>
 
       <View style={styles.profileCard}>
@@ -31,9 +45,11 @@ const DocterProfile = ({ route }) => {
           <View style={styles.avatarCircle} />
         </View>
         <View style={styles.doctorInfo}>
-          <Text style={styles.doctorName}>{name}</Text>
-          <Text style={styles.doctorSpecialty}>Cardiology</Text>
-          <Text style={styles.doctorLocation}>Location: City, Country</Text>
+          <Text style={styles.doctorName}>{fullName}</Text>
+          <Text style={styles.doctorSpecialty}>{speciality}</Text>
+          <Text
+            style={styles.doctorLocation}
+          >{`Address - ${state}, ${city}, ${address}`}</Text>
         </View>
       </View>
 
@@ -84,4 +100,4 @@ const DocterProfile = ({ route }) => {
   );
 };
 
-export default DocterProfile;
+export default DoctorProfile;

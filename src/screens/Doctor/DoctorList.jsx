@@ -6,71 +6,76 @@ import Docter from "../../components/Docter";
 import Search from "../../components/filters/Search";
 import { TouchableOpacity } from "react-native";
 import { colors } from "../../utils";
+import { useDoctor } from "../../context/Doctors";
 
 const docters = [
   {
     id: Math.random(),
-    title: "Dr Khalid Mehmood",
-    price: "$79",
-    likes: "332",
+    doctorName: "Dr Khalid Mehmood",
+    workingDays: "Mon - Fri",
+    speciality: "Cardiology",
+    rating: 4.5,
+    reviews: 332,
+    patients: "1K+",
+    yearExperience: 10,
   },
   {
     id: Math.random(),
-    title: "Dr Islam Shah",
-    price: "$44",
-    likes: "332K",
+    doctorName: "Dr Islam Shah",
+    workingDays: "Tue - Sat",
+    speciality: "Dermatology",
+    rating: 4.2,
+    reviews: 248,
+    patients: "800+",
+    yearExperience: 8,
   },
   {
     id: Math.random(),
-    title: "Dr Mehmoona",
-    price: "$20",
-    likes: "33K",
+    doctorName: "Dr Mehmoona",
+    workingDays: "Mon - Thu",
+    speciality: "Pediatrics",
+    rating: 4.7,
+    reviews: 405,
+    patients: "1.2K+",
+    yearExperience: 12,
   },
   {
     id: Math.random(),
-    title: "Dr Afzal Shan",
-    price: "$3",
-    likes: "3K",
+    doctorName: "Dr Afzal Shan",
+    workingDays: "Mon - Fri",
+    speciality: "Orthopedics",
+    rating: 4.8,
+    reviews: 512,
+    patients: "1.5K+",
+    yearExperience: 15,
   },
   {
     id: Math.random(),
-    title: "Dr Waseeq Ahmad",
-    price: "$8",
-    likes: "32K",
+    doctorName: "Dr Waseeq Ahmad",
+    workingDays: "Tue - Sat",
+    speciality: "Gastroenterology",
+    rating: 4.6,
+    reviews: 376,
+    patients: "1.1K+",
+    yearExperience: 11,
   },
   {
     id: Math.random(),
-    title: "Dr Noreen",
-    price: "$80",
-    likes: "52K",
-  },
-  {
-    id: Math.random(),
-    title: "Dr Safder Shan",
-    price: "$80",
-    likes: "500K",
-  },
-  {
-    id: Math.random(),
-    title: "Dr Ahmad",
-    price: "$45",
-    likes: "3K",
-  },
-  {
-    id: Math.random(),
-    title: "Dr Wali Akhter",
-    price: "$79",
-    likes: "7K",
-  },
-  {
-    id: Math.random(),
-    title: "Dr Yasir Mehmood",
-    price: "$79",
-    likes: "7K",
+    doctorName: "Dr Noreen",
+    workingDays: "Mon - Thu",
+    speciality: "Ophthalmology",
+    rating: 4.3,
+    reviews: 289,
+    patients: "900+",
+    yearExperience: 9,
   },
 ];
-export default function DocterList({ navigation }) {
+
+export default function DoctorList({ navigation }) {
+  const { doctors } = useDoctor();
   const [newItems, setNewItems] = useState(docters);
+
+  console.log("These are the doctors: ", doctors);
 
   const searchDocter = (text) => {
     if (text) {

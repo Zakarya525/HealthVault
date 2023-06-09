@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Splash from "../screens/Splash";
 import Welcome from "../screens/Welcome";
-import DocterList from "../screens/Docter/DocterList";
-import DocterProfile from "../screens/Docter/DocterProfile";
+import DoctorList from "../screens/Doctor/DoctorList";
+import DoctorProfile from "../screens/Doctor/DoctorProfile";
 import { UserGuide1, UserGuide2, UserGuide3 } from "../screens/UserGuide";
 import BottomNavigation from "./BottomNavigation";
 import { Login } from "../screens/Authentication";
@@ -23,8 +23,8 @@ const StackNavigation = () => {
         <Stack.Group>
           <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
           <Stack.Screen name="BookAppointment" component={BookAppointment} />
-          <Stack.Screen name="DocterProfile" component={DocterProfile} />
-          <Stack.Screen name="DocterList" component={DocterList} />
+          <Stack.Screen name="DoctorProfile" component={DoctorProfile} />
+          <Stack.Screen name="DoctorList" component={DoctorList} />
         </Stack.Group>
       ) : (
         <Stack.Group>
