@@ -8,78 +8,15 @@ import { TouchableOpacity } from "react-native";
 import { colors } from "../../utils";
 import { useDoctor } from "../../context/Doctors";
 
-const docters = [
-  {
-    id: Math.random(),
-    doctorName: "Dr Khalid Mehmood",
-    workingDays: "Mon - Fri",
-    speciality: "Cardiology",
-    rating: 4.5,
-    reviews: 332,
-    patients: "1K+",
-    yearExperience: 10,
-  },
-  {
-    id: Math.random(),
-    doctorName: "Dr Islam Shah",
-    workingDays: "Tue - Sat",
-    speciality: "Dermatology",
-    rating: 4.2,
-    reviews: 248,
-    patients: "800+",
-    yearExperience: 8,
-  },
-  {
-    id: Math.random(),
-    doctorName: "Dr Mehmoona",
-    workingDays: "Mon - Thu",
-    speciality: "Pediatrics",
-    rating: 4.7,
-    reviews: 405,
-    patients: "1.2K+",
-    yearExperience: 12,
-  },
-  {
-    id: Math.random(),
-    doctorName: "Dr Afzal Shan",
-    workingDays: "Mon - Fri",
-    speciality: "Orthopedics",
-    rating: 4.8,
-    reviews: 512,
-    patients: "1.5K+",
-    yearExperience: 15,
-  },
-  {
-    id: Math.random(),
-    doctorName: "Dr Waseeq Ahmad",
-    workingDays: "Tue - Sat",
-    speciality: "Gastroenterology",
-    rating: 4.6,
-    reviews: 376,
-    patients: "1.1K+",
-    yearExperience: 11,
-  },
-  {
-    id: Math.random(),
-    doctorName: "Dr Noreen",
-    workingDays: "Mon - Thu",
-    speciality: "Ophthalmology",
-    rating: 4.3,
-    reviews: 289,
-    patients: "900+",
-    yearExperience: 9,
-  },
-];
-
 export default function DoctorList({ navigation }) {
   const { doctors } = useDoctor();
-  const [newItems, setNewItems] = useState(docters);
+  const [newItems, setNewItems] = useState(doctors);
 
   console.log("These are the doctors: ", doctors);
 
-  const searchDocter = (text) => {
+  const searchDoctor = (text) => {
     if (text) {
-      const newItems = docters.filter((item) => {
+      const newItems = doctors.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
           : "".toUpperCase();
@@ -89,7 +26,7 @@ export default function DoctorList({ navigation }) {
       });
       setNewItems(newItems);
     } else {
-      setNewItems(docters);
+      setNewItems(doctors);
     }
   };
 
@@ -102,7 +39,7 @@ export default function DoctorList({ navigation }) {
         <Icon name="arrow-left" size={20} color={colors.primaryColor} />
       </TouchableOpacity>
 
-      <Search value="Search Docters" searchDocter={searchDocter} />
+      <Search placeHolder="Search Doctors" searchAction={searchDoctor} />
       <FlatList
         data={newItems}
         renderItem={({ item }) => <Doctor docter={item} />}

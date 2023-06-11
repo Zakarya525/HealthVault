@@ -9,6 +9,7 @@ export const DoctorProvider = ({ children }) => {
   const initialState = {
     doctors: [],
     doctor: {},
+    isAlert: false,
   };
   const [state, dispatch] = useReducer(DoctorReducer, initialState);
 
@@ -23,6 +24,10 @@ export const DoctorProvider = ({ children }) => {
         dispatch({
           type: "GET_DOCTORS",
           payload: res.items,
+        });
+      } else {
+        dispatch({
+          type: "SET_ALERT",
         });
       }
       dispatch({ type: "SET_LOADING_FALSE" });

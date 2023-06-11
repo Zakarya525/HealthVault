@@ -3,7 +3,7 @@ import { TextInput, View, StyleSheet } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
 
-const Search = ({ value, searchAction }) => {
+const Search = ({ placeholder, searchAction }) => {
   return (
     <View style={styles.container}>
       <AntDesign
@@ -14,7 +14,7 @@ const Search = ({ value, searchAction }) => {
       />
       <TextInput
         style={styles.input}
-        placeholder={value}
+        placeholder={placeholder}
         placeholderTextColor={colors.gray}
         onChangeText={(text) => searchAction(text)}
       />

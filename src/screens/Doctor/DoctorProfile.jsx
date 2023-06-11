@@ -3,10 +3,10 @@ import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import tw from "twrnc";
-import { colors } from "../../utils";
+import { colors } from "@utils";
 import { styles } from "./styles";
-import { useDoctor } from "../../context/Doctors";
-import Loader from "../../components/Loader/Loader";
+import { useDoctor } from "@context/Doctors";
+import Loader from "@components/Loader/Loader";
 
 const DoctorProfile = () => {
   const navigation = useNavigation();

@@ -10,12 +10,8 @@ export const getDoctors = async () => {
     throw new Error(error.message);
   }
 };
+
 export const getDoctor = async (id) => {
-  try {
-    const response = await ApiManager.get(`doctor/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(error.message);
-  }
+  const response = await ApiManager.get(`doctor/${id}`);
+  return response.data;
 };

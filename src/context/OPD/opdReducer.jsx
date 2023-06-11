@@ -22,7 +22,6 @@ export default (state, action) => {
       return {
         ...state,
         isAlert: true,
-        isLoading: false,
       };
 
     case "SET_LOADING_FALSE":

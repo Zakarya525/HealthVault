@@ -1,16 +1,19 @@
 import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import tw from "twrnc";
 import Icon from "react-native-vector-icons/FontAwesome";
 import uuid from "react-native-uuid";
-import { colors } from "../utils";
-import Doctor from "../components/Doctor";
+import { colors } from "@utils";
+import Doctor from "@components/Doctor";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "../context/Authentication";
-import Loader from "../components/Loader/Loader";
-import { useDoctor } from "../context/Doctors";
+import { useAuth } from "@context/Authentication";
+import Loader from "@components/Loader/Loader";
+import { useDoctor } from "@context/Doctors";
+import ApiManager from "@services/ApiManager";
+import ActiveOpd from "@components/ActiveOpd";
+import Alert from "@components/Alert";
 
 const docterSpeciality = [
   {
@@ -61,8 +64,23 @@ const Home = () => {
   const { doctors, isAlert } = useDoctor();
   if (isLoading) return <Loader />;
 
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("Before calling useEffect");
+      try {
+        const res = await ApiManager.get("/opd/active");
+        console.log("API Response:", res.data);
+      } catch (error) {
+        console.log("API Error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <View>
+      {isAlert && <Alert message="Oops! Something went wrong." />}
       <Text style={styles.headingLarge}>Greeting {user.firstName}</Text>
 
       <Image
@@ -86,6 +104,11 @@ const Home = () => {
           );
         })}
       </ScrollView>
+      <View>
+        <Text style={styles.headingMedium}>Active OPDs</Text>
+
+        <ActiveOpd />
+      </View>
 
       <View style={tw`flex-row justify-between`}>
         <Text style={styles.headingMedium}>Top Doctors</Text>
@@ -103,11 +126,13 @@ const Home = () => {
         </TouchableOpacity>
       </View>
       <View>
-        <ScrollView style={tw`h-64`}>
-          {doctors.map((doctor) => {
-            return <Doctor key={doctor._id} doctor={doctor} />;
-          })}
-        </ScrollView>
+        {doctors.length > 0 && (
+          <ScrollView style={tw`h-64`}>
+            {doctors.map((doctor) => (
+              <Doctor key={doctor._id} doctor={doctor} />
+            ))}
+          </ScrollView>
+        )}
       </View>
       <StatusBar style="auto" />
     </View>
