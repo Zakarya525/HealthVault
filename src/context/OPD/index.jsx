@@ -1,6 +1,5 @@
-import opdContext from "./opdContext";
+import OpdContext from "./opdContext";
 import { useContext } from "react";
 
-export { OpdProvider } from "./opdProvider";
-
-export const useOPD = () => useContext(opdContext);
+export { OpdProvider } from "./OpdProvider";
+export const useOPD = () => useContext(OpdContext);

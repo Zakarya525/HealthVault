@@ -1,15 +1,15 @@
 export default (state, action) => {
   switch (action.type) {
-    case "GET_DOCTOR":
+    case "SET_OPDS":
       return {
         ...state,
-        doctor: action.payload,
+        OPDs: action.payload,
         isLoading: false,
       };
-    case "GET_DOCTORS":
+    case "SET_ACTIVE_OPD":
       return {
         ...state,
-        doctors: action.payload,
+        activeOPD: action.payload,
         isLoading: false,
       };
 
@@ -17,17 +17,6 @@ export default (state, action) => {
       return {
         ...state,
         isLoading: true,
-      };
-    case "SET_ALERT":
-      return {
-        ...state,
-        isAlert: true,
-      };
-
-    case "SET_LOADING_FALSE":
-      return {
-        ...state,
-        isLoading: false,
       };
   }
 };

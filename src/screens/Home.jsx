@@ -1,6 +1,5 @@
 import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
 import tw from "twrnc";
 import Icon from "react-native-vector-icons/FontAwesome";
 import uuid from "react-native-uuid";
@@ -11,7 +10,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@context/Authentication";
 import Loader from "@components/Loader/Loader";
 import { useDoctor } from "@context/Doctors";
-import ApiManager from "@services/ApiManager";
 import ActiveOpd from "@components/ActiveOpd";
 import Alert from "@components/Alert";
 
@@ -63,20 +61,6 @@ const Home = () => {
   const { user, isLoading } = useAuth();
   const { doctors, isAlert } = useDoctor();
   if (isLoading) return <Loader />;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("Before calling useEffect");
-      try {
-        const res = await ApiManager.get("/opd/active");
-        console.log("API Response:", res.data);
-      } catch (error) {
-        console.log("API Error:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <View>

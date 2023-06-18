@@ -12,6 +12,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { AuthProvider } from "./src/context/Authentication";
 import { AppProvider } from "./src/context/Appointments";
 import { DoctorProvider } from "./src/context/Doctors/DoctorProvider.jsx";
+import { OpdProvider } from "./src/context/OPD/OpdProvider.jsx";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -36,9 +37,11 @@ export default function App() {
     <AuthProvider>
       <AppProvider>
         <DoctorProvider>
-          <NavigationContainer>
-            <StackNavigation />
-          </NavigationContainer>
+          <OpdProvider>
+            <NavigationContainer>
+              <StackNavigation />
+            </NavigationContainer>
+          </OpdProvider>
         </DoctorProvider>
       </AppProvider>
     </AuthProvider>
