@@ -1,66 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { Text, FlatList, StyleSheet, View, Button } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import Search from "../../components/filters/Search";
-import { TouchableOpacity } from "react-native";
-import Doctor from "../../components/Doctor";
-import { colors } from "../../utils";
-import { useDoctor } from "../../context/Doctors";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useDoctor } from "@context/Doctors";
 
-export default function DoctorList({ navigation }) {
-  const { doctors } = useDoctor();
-  const [filteredDoctors, setFilteredDoctors] = useState([]);
+function Appointment({ doctor }) {
+  const navigation = useNavigation();
+  const { getDoctorById } = useDoctor();
 
-  const searchDoctor = (text) => {
-    if (text) {
-      const newItems = doctors.filter((item) => {
-        const itemData =
-          `${item.fullName} ${item.speciality} ${item.address}`.toUpperCase();
-        const searchData = text.toUpperCase();
-        return itemData.indexOf(searchData) > -1;
-      });
-      setFilteredDoctors(newItems);
-    } else {
-      setFilteredDoctors(doctors);
-    }
-  };
-
-  useEffect(() => {
-    setFilteredDoctors(doctors);
-  }, [doctors]);
-
-  const keyExtractor = (item) => {
-    if (item && item._id) {
-      return item._id.toString();
-    }
-    return "";
+  const handleClick = () => {
+    getDoctorById(doctor._id);
+    navigation.navigate("DoctorProfile");
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={{ marginLeft: 10, marginBottom: 10 }}
-        onPress={() => navigation.goBack()}
-      >
-        <Icon name="arrow-left" size={20} color={colors.primaryColor} />
-      </TouchableOpacity>
-
-      <Search placeholder="Search Doctors" searchAction={searchDoctor} />
-      <FlatList
-        data={filteredDoctors}
-        renderItem={({ item }) => <Doctor doctor={item} />}
-        keyExtractor={keyExtractor}
-      />
-      <StatusBar style="auto" />
-    </View>
+    <TouchableOpacity style={styles.container} onPress={handleClick}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.nameText}>{doctor.fullName}</Text>
+        <View style={styles.likesContainer}>
+          <Text style={styles.specialityText}>
+            Speciality: {doctor.speciality}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 
+export default Appointment;
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f4f4f4",
-    paddingTop: 50,
-    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "#FFFFFF",
+    height: 120,
+    marginBottom: 12,
+    marginRight: 12,
+    marginLeft: 12,
+    borderRadius: 8,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    marginRight: 8,
+  },
+  contentContainer: {
+    justifyContent: "center",
+    padding: 12,
+  },
+  nameText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  specialityText: {
+    fontSize: 16,
+    color: "#666666",
   },
 });

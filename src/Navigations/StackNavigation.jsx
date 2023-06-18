@@ -10,6 +10,7 @@ import { Register } from "../screens/Authentication/Register";
 import BookAppointment from "./Appointment/BookAppointment";
 import Loader from "../components/Loader/Loader";
 import { useAuth } from "../context/Authentication";
+import Appointment from "./Appointment/Appointment";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const StackNavigation = () => {
         <Stack.Group>
           <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
           <Stack.Screen name="BookAppointment" component={BookAppointment} />
+          <Stack.Screen name="AppointmentScreen" component={Appointment} />
           <Stack.Screen name="DoctorProfile" component={DoctorProfile} />
           <Stack.Screen name="DoctorList" component={DoctorList} />
         </Stack.Group>

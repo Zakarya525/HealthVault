@@ -1,19 +1,17 @@
 import { useEffect, useRef, useReducer } from "react";
-
 import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
-
 import {
   deleteAuthToken,
   saveAuthToken,
   getAuthToken,
 } from "../../storage/SecureStore";
-import { getUserMe, loginUser } from "../../services/user/api";
+import { getUserMe, loginUser } from "@services/user/api";
 
 export const AuthProvider = ({ children }) => {
   const initialState = {
     user: {},
-    isLoading: true, // Set isLoading to true initially
+    isLoading: true,
     token: "",
     isLoggedIn: false,
   };
@@ -21,7 +19,6 @@ export const AuthProvider = ({ children }) => {
 
   const setLoading = () => dispatch({ type: "SET_LOADING" });
 
-  // Get user token
   const signIn = async (values) => {
     setLoading();
     const res = await loginUser(values);
@@ -40,7 +37,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Get user data
   const isMountedRef = useRef(false);
   useEffect(() => {
     isMountedRef.current = true;
@@ -49,7 +45,6 @@ export const AuthProvider = ({ children }) => {
       if (!token) {
         console.log("No token is present");
         dispatch({ type: "SET_LOGGEDIN_FALSE" });
-        console.log(state.isLoggedIn);
         return;
       }
       getUserMe(token).then((res) => {
@@ -69,7 +64,6 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // Log out user
   const logOut = async () => {
     try {
       await deleteAuthToken();

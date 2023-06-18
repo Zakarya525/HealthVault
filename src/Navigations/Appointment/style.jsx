@@ -119,4 +119,10 @@ export const styles = StyleSheet.create({
   modalButtonsContainer: {
     flexDirection: "row",
   },
+  header: {
+    marginTop: 20,
+    marginLeft: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });

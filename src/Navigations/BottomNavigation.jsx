@@ -8,6 +8,7 @@ import Articles from "../screens/Articles";
 import Profile from "../screens/Profile";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Feather from "react-native-vector-icons/Feather";
+import AppointmentList from "./Appointment/AppointmentList";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ const BottomNavigation = () => {
       />
       <Tab.Screen
         name="Appointment"
-        component={Appointment}
+        component={AppointmentList}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons

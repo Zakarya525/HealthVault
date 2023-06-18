@@ -96,7 +96,7 @@ const Home = () => {
 
       <View style={tw`flex-row justify-between`}>
         <Text style={styles.headingMedium}>Top Doctors</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("DocterList")}>
+        <TouchableOpacity onPress={() => navigation.navigate("DoctorList")}>
           <Text
             style={{
               color: colors.primaryColor,

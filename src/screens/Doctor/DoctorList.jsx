@@ -42,7 +42,8 @@ export default function DoctorList({ navigation }) {
       <Search placeHolder="Search Doctors" searchAction={searchDoctor} />
       <FlatList
         data={newItems}
-        renderItem={({ item }) => <Doctor docter={item} />}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => <Doctor doctor={item} />}
       />
       <StatusBar style="auto" />
     </View>
