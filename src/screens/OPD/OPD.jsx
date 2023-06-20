@@ -1,38 +1,32 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useDoctor } from "../context/Doctors";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-function Doctor({ doctor }) {
+function OPD({ opd }) {
   const navigation = useNavigation();
-  const { getDoctorById } = useDoctor();
-  console.log(doctor);
 
   const handleClick = () => {
-    getDoctorById(doctor._id);
-    navigation.navigate("DoctorProfile");
+    // getDoctorById(opd._id);
+    // navigation.navigate("DoctorProfile");
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleClick}>
-      <Image
-        style={styles.image}
-        source={require("../images/dr4.jpg")}
-        resizeMode="cover"
-      />
       <View style={styles.contentContainer}>
-        <Text style={styles.nameText}>{doctor.fullName}</Text>
-        <View style={styles.likesContainer}>
-          <Text style={styles.specialityText}>
-            Speciality: {doctor.speciality}
-          </Text>
-        </View>
+        <Text style={styles.nameText}>{opd.date}</Text>
+
+        <Text style={styles.specialityText}>
+          Next OPD: {opd.expectedTimeToNext}
+        </Text>
+
+        <Text style={styles.specialityText}>Last Token: {opd.lastToken}</Text>
+        <Text style={styles.specialityText}>Status: {opd.status}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
-export default Doctor;
+export default OPD;
 
 const styles = StyleSheet.create({
   container: {
@@ -51,13 +45,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  image: {
-    width: 120,
-    height: 120,
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-    marginRight: 8,
   },
   contentContainer: {
     justifyContent: "center",

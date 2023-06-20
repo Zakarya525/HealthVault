@@ -1,4 +1,4 @@
-import DocterList from "./DocterList";
-import DocterProfile from "./DocterList";
+import DoctorList from "./DoctorList";
+import DoctorProfile from "./DoctorProfile";
 
-export default { DocterList, DocterProfile };
+export default { DoctorList, DoctorProfile };

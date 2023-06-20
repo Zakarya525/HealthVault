@@ -10,9 +10,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@context/Authentication";
 import Loader from "@components/Loader/Loader";
 import { useDoctor } from "@context/Doctors";
-import ActiveOpd from "@components/ActiveOpd";
 import Alert from "@components/Alert";
 import { useOPD } from "../context/OPD";
+import { OPD, OPDList } from "./OPD";
 
 const docterSpeciality = [
   {
@@ -61,8 +61,7 @@ const Home = () => {
   const navigation = useNavigation();
   const { user, isLoading } = useAuth();
   const { doctors, isAlert } = useDoctor();
-  const { activeOPD } = useOPD();
-  console.log(activeOPD);
+  const { OPDs } = useOPD();
   if (isLoading) return <Loader />;
 
   return (
@@ -92,9 +91,30 @@ const Home = () => {
         })}
       </ScrollView>
       <View>
-        <Text style={styles.headingMedium}>Active OPDs</Text>
-
-        <ActiveOpd />
+        <View style={tw`flex-row justify-between`}>
+          <Text style={styles.headingMedium}>OPDs</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("OPDList")}>
+            <Text
+              style={{
+                color: colors.primaryColor,
+                marginTop: 10,
+                marginEnd: 10,
+                fontFamily: "Urbanist_700Bold",
+              }}
+            >
+              See All
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          {OPDs.length > 0 && (
+            <ScrollView style={tw`h-64`}>
+              {OPDs.map((opd) => (
+                <OPD key={opd._id} opd={opd} />
+              ))}
+            </ScrollView>
+          )}
+        </View>
       </View>
 
       <View style={tw`flex-row justify-between`}>
