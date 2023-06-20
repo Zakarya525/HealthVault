@@ -16,8 +16,9 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   const { isLoading, isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
+
   if (isLoading) return <Loader />;
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isLoggedIn ? (

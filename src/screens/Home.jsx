@@ -12,6 +12,7 @@ import Loader from "@components/Loader/Loader";
 import { useDoctor } from "@context/Doctors";
 import ActiveOpd from "@components/ActiveOpd";
 import Alert from "@components/Alert";
+import { useOPD } from "../context/OPD";
 
 const docterSpeciality = [
   {
@@ -60,6 +61,8 @@ const Home = () => {
   const navigation = useNavigation();
   const { user, isLoading } = useAuth();
   const { doctors, isAlert } = useDoctor();
+  const { activeOPD } = useOPD();
+  console.log(activeOPD);
   if (isLoading) return <Loader />;
 
   return (

@@ -4,7 +4,6 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useDoctor } from "../context/Doctors";
 
 function Doctor({ doctor }) {
-  console.log(doctor);
   const navigation = useNavigation();
   const { getDoctorById } = useDoctor();
 

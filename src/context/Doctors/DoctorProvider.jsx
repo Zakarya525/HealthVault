@@ -16,7 +16,6 @@ export const DoctorProvider = ({ children }) => {
   const setLoading = () => dispatch({ type: "SET_LOADING" });
 
   useEffect(() => {
-    console.log("Before calling useEffect");
     setLoading();
 
     getDoctors().then((res) => {
@@ -26,9 +25,7 @@ export const DoctorProvider = ({ children }) => {
           payload: res.items,
         });
       } else {
-        dispatch({
-          type: "SET_ALERT",
-        });
+        dispatch({ type: "SET_LOADING_FALSE" });
       }
       dispatch({ type: "SET_LOADING_FALSE" });
     });
@@ -43,9 +40,7 @@ export const DoctorProvider = ({ children }) => {
           payload: res.items,
         });
       } else {
-        dispatch({
-          type: "SET_ALERT",
-        });
+        dispatch({ type: "SET_LOADING_FALSE" });
       }
     });
   };

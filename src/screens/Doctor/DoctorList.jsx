@@ -12,8 +12,6 @@ export default function DoctorList({ navigation }) {
   const { doctors } = useDoctor();
   const [newItems, setNewItems] = useState(doctors);
 
-  console.log("These are the doctors: ", doctors);
-
   const searchDoctor = (text) => {
     if (text) {
       const newItems = doctors.filter((item) => {

@@ -75,11 +75,13 @@ const BookAppointment = () => {
     >
       {(formikProps) => (
         <View style={styles.container}>
-          <Text style={styles.title}>Book an Appointment</Text>
           <TouchableOpacity
-            style={{ marginLeft: 10, marginBottom: 10, color: "black" }}
+            style={{ marginLeft: 10, marginBottom: 10 }}
             onPress={() => navigation.goBack()}
-          ></TouchableOpacity>
+          >
+            <AntDesign name="arrowleft" size={20} color={colors.primaryColor} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Book an Appointment</Text>
 
           <TouchableOpacity
             style={styles.inputContainer}

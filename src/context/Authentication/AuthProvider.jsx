@@ -22,19 +22,17 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (values) => {
     setLoading();
     const res = await loginUser(values);
-    if (res?.code === "authenticated") {
-      saveAuthToken(res.jwt);
-      dispatch({
-        type: "LOGIN_USER",
-        token: res.jwt,
-        payload: res.items,
-      });
-    } else {
-      console.log("User not found");
-      dispatch({
-        type: "SET_LOADING_FALSE",
-      });
-    }
+    res?.code === "authenticated"
+      ? (saveAuthToken(res.jwt),
+        dispatch({
+          type: "LOGIN_USER",
+          token: res.jwt,
+          payload: res.items,
+        }))
+      : (console.log("User not found"),
+        dispatch({
+          type: "SET_LOADING_FALSE",
+        }));
   };
 
   const isMountedRef = useRef(false);
@@ -43,8 +41,8 @@ export const AuthProvider = ({ children }) => {
     setLoading();
     getAuthToken().then((token) => {
       if (!token) {
-        console.log("No token is present");
         dispatch({ type: "SET_LOGGEDIN_FALSE" });
+        dispatch({ type: "SET_LOADING_FALSE" });
         return;
       }
       getUserMe(token).then((res) => {
@@ -54,8 +52,10 @@ export const AuthProvider = ({ children }) => {
             payload: res.items,
             token: token,
           });
+        } else {
+          dispatch({ type: "SET_LOGGEDIN_FALSE" });
+          dispatch({ type: "SET_LOADING_FALSE" });
         }
-        dispatch({ type: "SET_LOADING_FALSE" });
       });
     });
 
