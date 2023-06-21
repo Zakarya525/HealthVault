@@ -12,7 +12,7 @@ export default function OPDList({ navigation }) {
   const { OPDs } = useOPD();
   const [newItems, setNewItems] = useState(OPDs);
 
-  const searchDoctor = (text) => {
+  const searchOPD = (text) => {
     if (text) {
       const newItems = OPDs.filter((item) => {
         const itemData = item.title
@@ -37,7 +37,7 @@ export default function OPDList({ navigation }) {
         <Icon name="arrow-left" size={20} color={colors.primaryColor} />
       </TouchableOpacity>
 
-      <Search placeHolder="Search OPDs" searchAction={searchDoctor} />
+      <Search placeHolder="Search OPDs" searchAction={searchOPD} />
       <FlatList
         data={newItems}
         keyExtractor={(item) => item._id}
