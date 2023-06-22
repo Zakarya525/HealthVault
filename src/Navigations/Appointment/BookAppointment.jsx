@@ -1,18 +1,18 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { styles } from "./style";
-import { useNavigation } from "@react-navigation/native";
-import { Calendar } from "react-native-calendars";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { colors } from "../../utils";
+import { useAppointment } from "@context/Appointments";
+import { useAuth } from "@context/Authentication";
 
 const validationSchema = Yup.object().shape({
-  date: Yup.string().required("Date is required"),
-  time: Yup.string().required("Time is required"),
+  fromTime: Yup.string().required("From time is required"),
+  toTime: Yup.string().required("To time is required"),
 });
 
 const customHours = [
@@ -31,6 +31,13 @@ const BookAppointment = () => {
   const navigation = useNavigation();
   const [selectedTime, setSelectedTime] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const { setAppointment, appointment } = useAppointment();
+  const { user } = useAuth();
+  const { firstName, lastName, mobile, email, cnic } = user;
+  const { status, tokenNumber } = appointment;
+
+  const route = useRoute();
+  const { opdId } = route.params;
   const viewRef = useRef(null);
 
   const saveModalImage = async () => {
@@ -52,83 +59,45 @@ const BookAppointment = () => {
     }
   };
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
   const handleTimeSelect = (time, formikProps) => {
     setSelectedTime(time);
-    formikProps.setFieldValue("time", time);
+    formikProps.setFieldValue("fromTime", time);
   };
 
-  const handleBookAppointment = async (data) => {
+  const handleBookAppointment = async (data, formikProps) => {
     setModalVisible(true);
-    console.log(data);
-    // setAppointment({ ...data, doctor });
+
+    setAppointment(data, opdId);
+
+    formikProps.resetForm();
   };
 
   return (
     <Formik
-      initialValues={{ date: "", time: "" }}
+      initialValues={{ fromTime: "", toTime: "" }}
       validationSchema={validationSchema}
       onSubmit={handleBookAppointment}
     >
       {(formikProps) => (
-        <View style={styles.container}>
-          <TouchableOpacity
-            style={{ marginLeft: 10, marginBottom: 10 }}
-            onPress={() => navigation.goBack()}
-          >
-            <AntDesign name="arrowleft" size={20} color={colors.primaryColor} />
-          </TouchableOpacity>
+        <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>Book an Appointment</Text>
 
-          <TouchableOpacity
-            style={styles.inputContainer}
-            onPress={showDatePicker}
-          >
-            <Calendar
-              style={styles.calendar}
-              onDayPress={(day) =>
-                formikProps.setFieldValue("date", day.dateString)
-              }
-              markedDates={{
-                [formikProps.values.date]: {
-                  selected: true,
-                  selectedColor: colors.primaryColor,
-                },
-              }}
-              theme={{
-                calendarBackground: colors.aliceblue,
-                textSectionTitleColor: colors.primaryColor,
-                selectedDayBackgroundColor: colors.primaryColor,
-                selectedDayTextColor: "#ffffff",
-                todayTextColor: "#26a69a",
-                arrowColor: "#737373",
-                textDayFontSize: 16,
-                textMonthFontSize: 16,
-                textDayHeaderFontSize: 16,
-                textDayFontFamily: "Urbanist_600SemiBold",
-                textMonthFontFamily: "Urbanist_600SemiBold",
-                textDayHeaderFontFamily: "Urbanist_600SemiBold",
-              }}
-            />
-          </TouchableOpacity>
-
+          <Text style={styles.headingMedium}>From</Text>
           <View style={styles.timeContainer}>
             {customHours.map((time) => (
               <TouchableOpacity
                 key={time}
                 style={[
                   styles.timeButton,
-                  formikProps.values.time === time && styles.selectedTimeButton,
+                  formikProps.values.fromTime === time &&
+                    styles.selectedTimeButton,
                 ]}
                 onPress={() => handleTimeSelect(time, formikProps)}
               >
                 <Text
                   style={[
                     styles.timeButtonText,
-                    formikProps.values.time === time &&
+                    formikProps.values.fromTime === time &&
                       styles.selectedTimeButtonText,
                   ]}
                 >
@@ -137,9 +106,38 @@ const BookAppointment = () => {
               </TouchableOpacity>
             ))}
           </View>
-          {formikProps.touched.time && formikProps.errors.time && (
-            <Text style={styles.error}>{formikProps.errors.time}</Text>
+          {formikProps.touched.fromTime && formikProps.errors.fromTime && (
+            <Text style={styles.error}>{formikProps.errors.fromTime}</Text>
           )}
+
+          <Text style={styles.headingMedium}>To</Text>
+          <View style={styles.timeContainer}>
+            {customHours.map((time) => (
+              <TouchableOpacity
+                key={time}
+                style={[
+                  styles.timeButton,
+                  formikProps.values.toTime === time &&
+                    styles.selectedTimeButton,
+                ]}
+                onPress={() => formikProps.setFieldValue("toTime", time)}
+              >
+                <Text
+                  style={[
+                    styles.timeButtonText,
+                    formikProps.values.toTime === time &&
+                      styles.selectedTimeButtonText,
+                  ]}
+                >
+                  {time}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {formikProps.touched.toTime && formikProps.errors.toTime && (
+            <Text style={styles.error}>{formikProps.errors.toTime}</Text>
+          )}
+
           <TouchableOpacity
             style={styles.button}
             onPress={formikProps.handleSubmit}
@@ -161,6 +159,16 @@ const BookAppointment = () => {
                 <Text style={styles.modalText}>
                   Your appointment has been successfully booked.
                 </Text>
+                <Text
+                  style={styles.modalText}
+                >{`Patient Name: ${firstName} ${lastName}`}</Text>
+                <Text style={styles.modalText}>Mobile: {mobile}</Text>
+                <Text style={styles.modalText}>Email: {email}</Text>
+                <Text style={styles.modalText}>CNIC: {cnic}</Text>
+                <Text style={styles.modalText}>Status: {status}</Text>
+                <Text style={styles.modalText}>
+                  Token Number: {tokenNumber}
+                </Text>
                 <View style={styles.modalButtonsContainer}>
                   <TouchableOpacity
                     style={styles.modalButton}
@@ -173,13 +181,13 @@ const BookAppointment = () => {
                     style={styles.saveButton}
                   >
                     <AntDesign name="save" size={24} color="black" />
-                    <Text style={styles.saveButtonText}>Save Image</Text>
+                    <Text>Save Image</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
           </Modal>
-        </View>
+        </ScrollView>
       )}
     </Formik>
   );

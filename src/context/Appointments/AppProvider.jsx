@@ -1,12 +1,14 @@
 import { useEffect, useReducer } from "react";
 import AppReducer from "./appReducer";
 import AppContext from "./appContext";
-import { collection, query, getDocs, addDoc } from "firebase/firestore";
-import { FIRESTORE_DB } from "../../../firebaseConfig";
+import ApiManager from "@services/ApiManager";
+import { getAuthToken } from "../../storage/SecureStore";
+import moment from "moment";
 
 export const AppProvider = ({ children }) => {
   const initialState = {
     appointments: [],
+    appointment: {},
     isLoading: false,
   };
 
@@ -14,45 +16,40 @@ export const AppProvider = ({ children }) => {
 
   const setLoading = () => dispatch({ type: "SET_LOADING" });
 
-  //   useEffect(() => {
-  //     setLoading();
-  //     const fetchAppointments = async () => {
-  //       try {
-  //         const querySnapshot = await getDocs(
-  //           query(collection(FIRESTORE_DB, "appointments"))
-  //         );
-  //         const fetchedAppointments = querySnapshot.docs.map((doc) => ({
-  //           id: doc.id,
-  //           ...doc.data(),
-  //         }));
-  //         dispatch({
-  //           type: "SET_APPOINTMENTS",
-  //           payload: fetchedAppointments,
-  //         });
-  //       } catch (error) {
-  //         console.log("Error fetching appointments:", error);
-  //       }
-  //     };
+  const setAppointment = (data, opdId) => {
+    console.log(data, opdId);
 
-  //     fetchAppointments();
-  //   }, []);
-
-  const setAppointment = async (data) => {
-    console.log(data);
     setLoading();
 
-    try {
-      const appointmentsCollection = collection(FIRESTORE_DB, "appointments");
-      await addDoc(appointmentsCollection, data);
+    getAuthToken().then((token) => {
+      if (!token) {
+        dispatch({ type: "SET_LOGGEDIN_FALSE" });
+        dispatch({ type: "SET_LOADING_FALSE" });
+        return;
+      }
 
-      alert("Appointment booked successfully!");
-      dispatch({
-        type: "SET_LAODING_FALSE",
-      });
-    } catch (error) {
-      console.log("Error booking appointment:", error);
-      alert("Failed to book appointment. Please try again.");
-    }
+      const requestData = {
+        fromTime: moment(data.fromTime, "hh:mm A").toDate(),
+        toTime: moment(data.toTime, "hh:mm A").toDate(),
+        opdId: opdId,
+      };
+      console.log(requestData);
+      ApiManager.post("/appointment", requestData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res.data.code);
+          dispatch({
+            type: "SET_APPOINTMENT",
+            payload: res.data.items,
+          });
+        })
+        .catch((error) => {
+          console.log("Error creating appointment:", error.response.data);
+        });
+    });
   };
 
   return (

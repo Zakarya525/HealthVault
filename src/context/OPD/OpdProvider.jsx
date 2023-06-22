@@ -7,7 +7,7 @@ import OpdReducer from "./opdReducer";
 export const OpdProvider = ({ children }) => {
   const initialState = {
     OPDs: [],
-    activeOPD: {},
+    activeOPD: [],
   };
   const [state, dispatch] = useReducer(OpdReducer, initialState);
 
@@ -19,7 +19,6 @@ export const OpdProvider = ({ children }) => {
       try {
         const res = await ApiManager.get("/opd");
         if (res?.data) {
-          console.log("These are all opds", res.data.items);
           dispatch({
             type: "SET_OPDS",
             payload: res.data.items,
@@ -38,11 +37,11 @@ export const OpdProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         const res = await ApiManager.get("/opd/active");
-        if (res?.data) console.log("These are active opds", res.data.items);
-        dispatch({
-          type: "SET_ACTIVE_OPD",
-          payload: res.data.items,
-        });
+        if (res?.data)
+          dispatch({
+            type: "SET_ACTIVE_OPD",
+            payload: res.data.items,
+          });
       } catch (error) {
         console.log("API Error:", error);
       }

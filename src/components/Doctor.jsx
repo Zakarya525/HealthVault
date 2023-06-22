@@ -6,7 +6,6 @@ import { useDoctor } from "../context/Doctors";
 function Doctor({ doctor }) {
   const navigation = useNavigation();
   const { getDoctorById } = useDoctor();
-  console.log(doctor);
 
   const handleClick = () => {
     getDoctorById(doctor._id);

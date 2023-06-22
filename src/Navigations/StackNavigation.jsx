@@ -12,6 +12,7 @@ import Loader from "../components/Loader/Loader";
 import { useAuth } from "../context/Authentication";
 import Appointment from "./Appointment/Appointment";
 import { OPDList } from "../screens/OPD";
+import OPDProfile from "../screens/OPD/OPDProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ const StackNavigation = () => {
           <Stack.Screen name="DoctorProfile" component={DoctorProfile} />
           <Stack.Screen name="DoctorList" component={DoctorList} />
           <Stack.Screen name="OPDList" component={OPDList} />
+          <Stack.Screen name="OPDProfile" component={OPDProfile} />
         </Stack.Group>
       ) : (
         <Stack.Group>

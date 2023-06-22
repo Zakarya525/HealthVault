@@ -48,7 +48,7 @@ export default function AppointmentList({ navigation }) {
       </View>
 
       <Search
-        placeholder="Search Appointment"
+        placeHolder="Search Appointment"
         searchAction={searchAppointment}
       />
       {appointments && appointments.length > 0 ? (

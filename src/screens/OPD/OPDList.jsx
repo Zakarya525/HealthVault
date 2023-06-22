@@ -9,7 +9,7 @@ import { colors } from "../../utils";
 import { useOPD } from "../../context/OPD";
 
 export default function OPDList({ navigation }) {
-  const { OPDs } = useOPD();
+  const { OPDs, activeOPD } = useOPD();
   const [newItems, setNewItems] = useState(OPDs);
 
   const searchOPD = (text) => {

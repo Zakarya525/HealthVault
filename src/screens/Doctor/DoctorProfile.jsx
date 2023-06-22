@@ -25,7 +25,7 @@ const DoctorProfile = () => {
   if (isLoading) return <Loader />;
 
   const handleClick = () => {
-    navigation.navigate("BookAppointment");
+    navigation.navigate("OPDList");
   };
 
   return (
@@ -94,7 +94,7 @@ const DoctorProfile = () => {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleClick}>
-        <Text style={styles.buttonText}>Book Appointment</Text>
+        <Text style={styles.buttonText}>See Active OPDs</Text>
       </TouchableOpacity>
     </View>
   );

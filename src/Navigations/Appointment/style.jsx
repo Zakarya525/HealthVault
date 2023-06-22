@@ -87,21 +87,18 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f4f4f4",
     padding: 20,
     borderRadius: 8,
-    alignItems: "center",
   },
   modalText: {
     fontSize: 18,
     fontFamily: "Urbanist_500Medium",
     marginBottom: 10,
-    textAlign: "center",
   },
   modalButton: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
     marginTop: 20,
   },
   modalButtonText: {
@@ -124,5 +121,12 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     flexDirection: "row",
     alignItems: "center",
+  },
+  headingMedium: {
+    fontSize: 20,
+    fontFamily: "Urbanist_700Bold",
+    marginTop: 10,
+    marginStart: 10,
+    marginBottom: 5,
   },
 });

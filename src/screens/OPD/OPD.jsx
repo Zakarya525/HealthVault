@@ -4,16 +4,16 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 function OPD({ opd }) {
   const navigation = useNavigation();
-
+  const date = new Date(opd.date).toLocaleString();
   const handleClick = () => {
     // getDoctorById(opd._id);
-    // navigation.navigate("DoctorProfile");
+    navigation.navigate("OPDProfile", { opdId: opd._id });
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleClick}>
       <View style={styles.contentContainer}>
-        <Text style={styles.nameText}>{opd.date}</Text>
+        <Text style={styles.nameText}>{date}</Text>
 
         <Text style={styles.specialityText}>
           Next OPD: {opd.expectedTimeToNext}
