@@ -2,13 +2,12 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import Appointment from "./Appointment/Appointment";
 import History from "../screens/History";
-import Articles from "../screens/Articles";
+import Articles from "../screens/Articles/Articles";
 import Profile from "../screens/Profile";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Feather from "react-native-vector-icons/Feather";
-import AppointmentList from "./Appointment/AppointmentList";
+import AppointmentList from "../screens/Appointment/AppointmentList";
 
 const Tab = createBottomTabNavigator();
 

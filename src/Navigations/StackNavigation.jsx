@@ -7,12 +7,12 @@ import { UserGuide1, UserGuide2, UserGuide3 } from "../screens/UserGuide";
 import BottomNavigation from "./BottomNavigation";
 import { Login } from "../screens/Authentication";
 import { Register } from "../screens/Authentication/Register";
-import BookAppointment from "./Appointment/BookAppointment";
+import { BookAppointment, Appointment } from "../screens/Appointment";
 import Loader from "../components/Loader/Loader";
 import { useAuth } from "../context/Authentication";
-import Appointment from "./Appointment/Appointment";
 import { OPDList } from "../screens/OPD";
 import OPDProfile from "../screens/OPD/OPDProfile";
+import ArticleProfile from "../screens/Articles/ArticleProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +32,7 @@ const StackNavigation = () => {
           <Stack.Screen name="DoctorList" component={DoctorList} />
           <Stack.Screen name="OPDList" component={OPDList} />
           <Stack.Screen name="OPDProfile" component={OPDProfile} />
+          <Stack.Screen name="ArticleProfile" component={ArticleProfile} />
         </Stack.Group>
       ) : (
         <Stack.Group>

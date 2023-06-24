@@ -18,7 +18,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@context/Authentication";
 import Loader from "@components/Loader/Loader";
 import { useDoctor } from "@context/Doctors";
-import Alert from "@components/Alert";
 import { useOPD } from "../context/OPD";
 import { OPD } from "./OPD";
 
