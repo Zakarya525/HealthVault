@@ -12,11 +12,22 @@ export default (state, action) => {
         activeOPD: action.payload,
         isLoading: false,
       };
+    case "SET_OPD":
+      return {
+        ...state,
+        OPD: action.payload,
+        isLoading: false,
+      };
 
     case "SET_LOADING":
       return {
         ...state,
         isLoading: true,
+      };
+    case "SET_LOADING_FALSE":
+      return {
+        ...state,
+        isLoading: false,
       };
   }
 };

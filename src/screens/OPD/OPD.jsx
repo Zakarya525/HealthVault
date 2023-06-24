@@ -1,12 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useOPD } from "@context/OPD";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 function OPD({ opd }) {
   const navigation = useNavigation();
+  const { getOpdById } = useOPD();
   const date = new Date(opd.date).toLocaleString();
   const handleClick = () => {
-    // getDoctorById(opd._id);
+    getOpdById(opd._id);
     navigation.navigate("OPDProfile", { opdId: opd._id });
   };
 
