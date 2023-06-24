@@ -54,7 +54,7 @@ export default function AppointmentList({ navigation }) {
       {appointments && appointments.length > 0 ? (
         <FlatList
           data={filteredAppointment}
-          renderItem={({ item }) => <Appointment doctor={item} />}
+          renderItem={({ item }) => <Appointment appointment={item} />}
           keyExtractor={keyExtractor}
         />
       ) : (

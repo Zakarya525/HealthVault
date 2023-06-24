@@ -3,22 +3,28 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useDoctor } from "@context/Doctors";
 
-function Appointment({ doctor }) {
+function Appointment({ appointment }) {
   const navigation = useNavigation();
   const { getDoctorById } = useDoctor();
 
   const handleClick = () => {
-    getDoctorById(doctor._id);
-    navigation.navigate("DoctorProfile");
+    // getDoctorById(appointment._id);
+    // navigation.navigate("DoctorProfile");
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleClick}>
       <View style={styles.contentContainer}>
-        <Text style={styles.nameText}>{doctor.fullName}</Text>
+        <Text style={styles.nameText}>Patient ID: {appointment.patientId}</Text>
         <View style={styles.likesContainer}>
           <Text style={styles.specialityText}>
-            Speciality: {doctor.speciality}
+            Status: {appointment.status}
+          </Text>
+          <Text style={styles.dateText}>
+            From: {new Date(appointment.fromTime).toLocaleString()}
+          </Text>
+          <Text style={styles.dateText}>
+            To: {new Date(appointment.toTime).toLocaleString()}
           </Text>
         </View>
       </View>
@@ -65,5 +71,9 @@ const styles = StyleSheet.create({
   specialityText: {
     fontSize: 16,
     color: "#666666",
+  },
+  dateText: {
+    fontSize: 14,
+    color: "#999999",
   },
 });

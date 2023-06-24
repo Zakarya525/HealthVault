@@ -1,9 +1,15 @@
 export default (state, action) => {
   switch (action.type) {
-    case "SET_APPOINTMENT":
+    case "SET_APPOINTMENTS":
       return {
         ...state,
-        appointment: action.payload,
+        appointments: action.payload,
+        isLoading: false,
+      };
+    case "SET_PENDING_APPOINTMENTS":
+      return {
+        ...state,
+        pendingAppointment: action.payload,
         isLoading: false,
       };
     case "SET_LOADING":
