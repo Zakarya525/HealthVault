@@ -65,3 +65,97 @@ export const articles = [
     image: require("../images/article7.jpg"),
   },
 ];
+
+export const trendingArticles = [
+  {
+    id: uuid.v4(),
+    heading: "Healthy Eating Habits",
+    title: "Developing a Balanced Diet: Tips for Healthy Eating",
+    description:
+      "Eating a balanced diet is essential for overall health and well-being. Discover tips for incorporating nutrient-rich foods, portion control, meal planning, and mindful eating into your daily routine.",
+    likes: "1.2K",
+    image: require("../images/trending1.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Heart Health",
+    title: "Taking Care of Your Heart: Preventing Cardiovascular Diseases",
+    description:
+      "Maintaining a healthy heart is vital for a long and active life. Learn about the risk factors for cardiovascular diseases, the importance of regular exercise, heart-healthy nutrition, and strategies for reducing stress.",
+    likes: "862",
+    image: require("../images/trending2.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Healthy Aging",
+    title: "Aging Gracefully: Tips for Healthy Aging and Longevity",
+    description:
+      "Aging is a natural process, and adopting healthy habits can promote graceful aging. Explore strategies for maintaining physical and mental well-being, managing age-related conditions, and enjoying a fulfilling lifestyle as you age.",
+    likes: "1.1K",
+    image: require("../images/trending3.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Gut Health",
+    title:
+      "Nurturing Your Gut: Importance of Gut Health and Digestive Wellness",
+    description:
+      "A healthy gut contributes to overall health and immunity. Discover the benefits of gut-friendly foods, probiotics, fiber-rich diet, and lifestyle habits that promote optimal digestion and gut microbiome balance.",
+    likes: "742",
+    image: require("../images/trending4.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Brain Health",
+    title: "Boosting Brain Power: Strategies for Cognitive Health",
+    description:
+      "Keeping your brain sharp and healthy is vital for cognitive function. Explore brain-boosting activities, memory-enhancing techniques, brain-healthy foods, and lifestyle habits that support long-term brain health.",
+    likes: "984",
+    image: require("../images/trending5.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Weight Management",
+    title: "Achieving and Maintaining a Healthy Weight: Strategies and Tips",
+    description:
+      "Maintaining a healthy weight is important for overall health and disease prevention. Discover effective strategies for weight management, including portion control, mindful eating, regular physical activity, and behavior modification.",
+    likes: "1.5K",
+    image: require("../images/trending6.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Immune System Boost",
+    title: "Strengthening Your Immune System: Natural Ways to Boost Immunity",
+    description:
+      "A strong immune system is essential for fighting off illnesses and infections. Learn about immune-boosting foods, lifestyle habits, supplements, and practices that support a robust immune system.",
+    likes: "1.3K",
+    image: require("../images/trending6.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Mindfulness and Meditation",
+    title: "The Power of Mindfulness: Cultivating Calmness and Clarity",
+    description:
+      "Practicing mindfulness and meditation can bring numerous benefits to mental and emotional well-being. Explore mindfulness techniques, meditation practices, and tips for incorporating mindfulness into daily life.",
+    likes: "942",
+    image: require("../images/trending6.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Men's Health",
+    title: "Promoting Men's Health: Essential Tips and Screening Guidelines",
+    description:
+      "Men have unique health concerns that require attention and care. Discover essential tips for men's health, including preventive screenings, healthy lifestyle choices, and addressing common men's health issues.",
+    likes: "872",
+    image: require("../images/trending6.jpg"),
+  },
+  {
+    id: uuid.v4(),
+    heading: "Women's Health",
+    title: "Empowering Women's Health: Key Topics and Wellness Strategies",
+    description:
+      "Women's health encompasses various aspects, from reproductive health to hormonal changes. Explore topics such as menstrual health, pregnancy, menopause, breast health, and strategies for maintaining overall wellness.",
+    likes: "1.2K",
+    image: require("../images/trending6.jpg"),
+  },
+];

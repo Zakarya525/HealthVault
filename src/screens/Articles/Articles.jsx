@@ -14,7 +14,7 @@ import { colors } from "../../utils";
 import MIcon from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import Article from "./Article";
-import { articles } from "@utils/articlesArray";
+import { articles, trendingArticles } from "@utils/articlesArray";
 
 const Articles = () => {
   const navigation = useNavigation();
@@ -44,7 +44,7 @@ const Articles = () => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {articles.map((article) => {
+        {trendingArticles.map((article) => {
           return (
             <View key={article.id}>
               <Image
@@ -63,21 +63,7 @@ const Articles = () => {
         })}
       </ScrollView>
 
-      <View style={tw`flex-row justify-between`}>
-        <Text style={styles.headingMedium}>Articles</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("DocterList")}>
-          <Text
-            style={{
-              color: colors.primaryColor,
-              marginTop: 10,
-              marginEnd: 10,
-              fontFamily: "Urbanist_700Bold",
-            }}
-          >
-            See All
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <Text style={styles.headingMedium}>Articles</Text>
 
       <View>
         <ScrollView style={styles.scrollView}>
