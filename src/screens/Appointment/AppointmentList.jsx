@@ -9,6 +9,7 @@ import { useAppointment } from "@context/Appointments";
 
 export default function AppointmentList({ navigation }) {
   const { appointments } = useAppointment();
+
   const [filteredAppointment, setFilteredAppointment] = useState([]);
 
   const searchAppointment = (text) => {

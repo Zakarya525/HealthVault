@@ -67,7 +67,7 @@ const docterSpeciality = [
 const Home = () => {
   const navigation = useNavigation();
   const { user, isLoading } = useAuth();
-  const { doctors, isAlert } = useDoctor();
+  const { doctors } = useDoctor();
   const { activeOPD } = useOPD();
   const [loaded, setLoaded] = useState(false);
 
@@ -134,7 +134,7 @@ const Home = () => {
             </View>
             {activeOPD.length > 0 && (
               <FlatList
-                data={activeOPD.slice(0, 2)}
+                data={activeOPD}
                 renderItem={renderOPDItem}
                 keyExtractor={(item) => item._id}
                 style={tw`h-64`}

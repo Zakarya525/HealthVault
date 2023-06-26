@@ -6,6 +6,12 @@ export default (state, action) => {
         appointments: action.payload,
         isLoading: false,
       };
+    case "SET_APPOINTMENT":
+      return {
+        ...state,
+        appointment: action.payload,
+        isLoading: false,
+      };
     case "SET_PENDING_APPOINTMENTS":
       return {
         ...state,

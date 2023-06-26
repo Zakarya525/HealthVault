@@ -9,6 +9,7 @@ import moment from "moment";
 export const AppProvider = ({ children }) => {
   const initialState = {
     appointments: [],
+    appointment: {},
     pendingAppointment: {},
     isLoading: false,
   };
@@ -23,10 +24,42 @@ export const AppProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         const res = await ApiManager.get(`appointment/patient/${user._id}`);
-        console.log(res.data);
 
         dispatch({
           type: "SET_APPOINTMENTS",
+          payload: res.data.items,
+        });
+      } catch (error) {
+        console.log("Error:", error);
+      } finally {
+        dispatch({
+          type: "SET_LOADING_FALSE",
+        });
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await getAuthToken();
+        if (!token) {
+          dispatch({ type: "SET_LOGGEDIN_FALSE" });
+          dispatch({ type: "SET_LOADING_FALSE" });
+          return;
+        }
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const res = await ApiManager.get("appointment/waiting", { headers });
+        console.log("This is waiting appointment: ", res.data);
+
+        dispatch({
+          type: "SET_APPOINTMENT",
           payload: res.data.items,
         });
       } catch (error) {
@@ -58,7 +91,7 @@ export const AppProvider = ({ children }) => {
         toTime: moment(data.toTime, "hh:mm A").toDate(),
         opdId: opdId,
       };
-      console.log(requestData);
+
       ApiManager.post("/appointment", requestData, {
         headers: {
           Authorization: `Bearer ${token}`,

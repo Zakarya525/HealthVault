@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import MIcon from "react-native-vector-icons/FontAwesome5";
 import { useAuth } from "../context/Authentication";
 import { useNavigation } from "@react-navigation/native";
-import { colors } from "../utils";
+import { colors } from "@utils";
 import * as ImagePicker from "expo-image-picker";
 import placeholderImageUri from "../images/placeholder-image.png";
 
@@ -40,6 +40,10 @@ const Profile = () => {
     if (!result.canceled) {
       setImageUri(result.assets[0].uri);
     }
+  };
+
+  const handleLogout = () => {
+    logOut();
   };
 
   const handleEditProfile = () => {
@@ -105,7 +109,7 @@ const Profile = () => {
 
       {renderUserData()}
 
-      <TouchableOpacity style={styles.logoutButton} onPress={() => logOut()}>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <MIcon name="sign-out-alt" size={20} color="red" />
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>

@@ -20,6 +20,7 @@ export const DoctorProvider = ({ children }) => {
 
     getDoctors().then((res) => {
       if (res?.code === "ok") {
+        console.log(res.items);
         dispatch({
           type: "GET_DOCTORS",
           payload: res.items,
@@ -27,7 +28,6 @@ export const DoctorProvider = ({ children }) => {
       } else {
         dispatch({ type: "SET_LOADING_FALSE" });
       }
-      dispatch({ type: "SET_LOADING_FALSE" });
     });
   }, []);
 

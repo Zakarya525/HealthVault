@@ -38,10 +38,10 @@ const StackNavigation = () => {
         <Stack.Group>
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserGuide1" component={UserGuide1} />
           <Stack.Screen name="UserGuide2" component={UserGuide2} />
           <Stack.Screen name="UserGuide3" component={UserGuide3} />
-          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
         </Stack.Group>
       )}

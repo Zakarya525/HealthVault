@@ -6,7 +6,24 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 function OPD({ opd }) {
   const navigation = useNavigation();
   const { getOpdById } = useOPD();
-  const date = new Date(opd.date).toLocaleString();
+  const date = new Date(opd.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  const nextOPDTime = new Date(opd.expectedTimeToNext).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    }
+  );
   const handleClick = () => {
     getOpdById(opd._id);
     navigation.navigate("OPDProfile", { opdId: opd._id });
@@ -17,9 +34,7 @@ function OPD({ opd }) {
       <View style={styles.contentContainer}>
         <Text style={styles.nameText}>{date}</Text>
 
-        <Text style={styles.specialityText}>
-          Next OPD: {opd.expectedTimeToNext}
-        </Text>
+        <Text style={styles.specialityText}>Next OPD: {nextOPDTime}</Text>
 
         <Text style={styles.specialityText}>Last Token: {opd.lastToken}</Text>
         <Text style={styles.specialityText}>Status: {opd.status}</Text>
