@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { fonts } from "../../utils";
+import { colors, fonts } from "../../utils";
 import { Image } from "react-native-elements";
 
 function Article({ article }) {
@@ -23,7 +23,9 @@ function Article({ article }) {
         style={styles.image}
         source={article.image}
         resizeMode="cover"
-        PlaceholderContent={<ActivityIndicator />}
+        PlaceholderContent={
+          <ActivityIndicator size="large" color={colors.aliceblue} />
+        }
       />
       <View style={styles.contentContainer}>
         <Text style={styles.headingText}>{article.heading}</Text>
