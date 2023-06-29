@@ -14,9 +14,13 @@ const Welcome = () => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.img} source={require("../images/wcScreen.png")} />
+      <Image
+        testID="img"
+        style={styles.img}
+        source={require("../images/wcScreen.png")}
+      />
       <PrimaryHeader text="Welcome to HealthVault!"></PrimaryHeader>
-      <Text style={styles.text}>
+      <Text testID="welcome" style={styles.text}>
         The best online doctor appointment & consultation app of the century for
         your health and medical needs!
       </Text>

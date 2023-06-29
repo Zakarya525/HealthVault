@@ -5,7 +5,9 @@ import { colors, fontSizes, spacing } from "../../utils";
 const PrimaryHeader = ({ text }) => {
   return (
     <View>
-      <Text style={styles.primaryHeader}>{text}</Text>
+      <Text testID="header" style={styles.primaryHeader}>
+        {text}
+      </Text>
     </View>
   );
 };
