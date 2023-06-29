@@ -6,7 +6,6 @@ import DoctorProfile from "../screens/Doctor/DoctorProfile";
 import { UserGuide1, UserGuide2, UserGuide3 } from "../screens/UserGuide";
 import BottomNavigation from "./BottomNavigation";
 import { Login } from "../screens/Authentication";
-import { Register } from "../screens/Authentication/Register";
 import { BookAppointment, Appointment } from "../screens/Appointment";
 import Loader from "../components/Loader/Loader";
 import { useAuth } from "../context/Authentication";
@@ -42,7 +41,6 @@ const StackNavigation = () => {
           <Stack.Screen name="UserGuide1" component={UserGuide1} />
           <Stack.Screen name="UserGuide2" component={UserGuide2} />
           <Stack.Screen name="UserGuide3" component={UserGuide3} />
-          <Stack.Screen name="Register" component={Register} />
         </Stack.Group>
       )}
     </Stack.Navigator>

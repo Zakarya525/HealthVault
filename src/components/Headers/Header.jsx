@@ -4,7 +4,11 @@ import { fontSizes } from "../../utils";
 import React from "react";
 
 const Header = ({ text }) => {
-  return <Text style={styles.text}>{text}</Text>;
+  return (
+    <Text testID="header" style={styles.text}>
+      {text}
+    </Text>
+  );
 };
 
 export default Header;

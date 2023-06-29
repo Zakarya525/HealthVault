@@ -6,8 +6,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "../../context/Authentication";
-import Loader from "../../components/Loader/Loader";
+import { useAuth } from "@context/Authentication";
+import Loader from "@components/Loader/Loader";
 
 const validationSchema = Yup.object().shape({
   cnic: Yup.string().required("Email is required"),
@@ -16,7 +16,7 @@ const validationSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
-export const Login = () => {
+export default function Login() {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { isLoading, signIn } = useAuth();
@@ -98,15 +98,8 @@ export const Login = () => {
           <TouchableOpacity style={styles.forgotPassword}>
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text style={styles.orContinueWith}>
-              Don't have an account?
-              <Text style={styles.forgotPasswordText}> Sign Up</Text>
-            </Text>
-          </TouchableOpacity>
         </View>
       )}
     </Formik>
   );
-};
+}

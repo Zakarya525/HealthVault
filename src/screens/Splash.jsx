@@ -19,6 +19,7 @@ const Splash = () => {
           name="hand-holding-medical"
           size={35}
           color="#fff"
+          testID="icon"
         />
         <Header text="HealthVault" />
       </View>
