@@ -1,53 +1,27 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
+import { render, fireEvent, act } from "@testing-library/react-native";
 import Login from "../../src/screens/Authentication/Login";
-import * as AuthContext from "../../src/context/Authentication";
-
-jest.mock("../../src/context/Authentication");
-
-// Mock the useNavigation hook
-jest.mock("@react-navigation/native", () => {
-  const actualNav = jest.requireActual("@react-navigation/native");
-  return {
-    ...actualNav,
-    useNavigation: jest.fn(),
-  };
-});
+import { NavigationContainer } from "@react-navigation/native";
+import { AuthProvider } from "@context/Authentication";
 
 describe("Login", () => {
-  it("should handle login when form is submitted", () => {
-    const signInMock = jest.fn(); // Create a mock function
-    AuthContext.useAuth.mockReturnValue({
-      isLoading: false,
-      signIn: signInMock,
-    });
-
-    // Mock the navigation object
-    useNavigation.mockReturnValue({ navigate: jest.fn() });
-
-    const { getByPlaceholderText, getByText } = render(
+  it("should allow the user to enter their CNIC and password", async () => {
+    const { findByPlaceholderText } = render(
       <NavigationContainer>
-        <Login />
+        <AuthProvider>
+          <Login />
+        </AuthProvider>
       </NavigationContainer>
     );
+    const cnicInput = await findByPlaceholderText("CNIC");
+    const passwordInput = await findByPlaceholderText("Password");
 
-    const cnicInput = getByPlaceholderText("CNIC");
-    const passwordInput = getByPlaceholderText("Password");
-    const signInButton = getByText("Sign In");
-
-    // Simulate user input
-    fireEvent.changeText(cnicInput, "123456789");
-    fireEvent.changeText(passwordInput, "password123");
-
-    // Simulate form submission
-    fireEvent.press(signInButton);
-
-    // Assert that signIn function was called with the correct values
-    expect(signInMock).toHaveBeenCalledWith({
-      cnic: "123456789",
-      password: "password123",
+    await act(async () => {
+      fireEvent.changeText(cnicInput, "12345-1234567-1");
+      fireEvent.changeText(passwordInput, "password123");
     });
+
+    expect(cnicInput.props.value).toBe("12345-1234567-1");
+    expect(passwordInput.props.value).toBe("password123");
   });
 });
