@@ -132,7 +132,7 @@ const Home = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {activeOPD.length > 0 && (
+            {activeOPD.length && (
               <FlatList
                 data={activeOPD}
                 renderItem={renderOPDItem}

@@ -30,7 +30,7 @@ export const OpdProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []);
+  }, [state.OPD, state.OPDs]);
 
   useEffect(() => {
     setLoading();
@@ -48,7 +48,7 @@ export const OpdProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []);
+  }, [state.activeOPDs]);
 
   const getOpdById = async (id) => {
     try {
