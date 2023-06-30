@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const PrimaryButton = ({ title, onPress }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity testID="button" style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );

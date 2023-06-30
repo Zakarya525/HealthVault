@@ -40,7 +40,7 @@ const UserGuide1 = () => {
           <Pagination count={3} activeIndex={0} />
         </View>
         <View style={styles.foot}>
-          <PrimaryButton title="Next" onPress={onPress} />
+          <PrimaryButton testID="next-button" title="Next" onPress={onPress} />
         </View>
       </View>
     </View>

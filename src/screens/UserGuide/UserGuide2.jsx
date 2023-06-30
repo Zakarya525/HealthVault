@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { View, Image } from "react-native";
 import React, { useState } from "react";
-import BlueCircle from "../../components/BlueCirlces";
+import BlueCircle from "@components/BlueCirlces";
 import { useNavigation } from "@react-navigation/native";
-import { PrimaryHeader } from "../../components/Headers";
-import { PrimaryButton } from "../../components/Buttons";
-import Pagination from "../../components/Pagination";
+import { PrimaryHeader } from "@components/Headers";
+import { PrimaryButton } from "@components/Buttons";
+import Pagination from "@components/Pagination";
 import { createStyle } from "./sytle";
-import Loader from "../../components/Loader/Loader";
+import Loader from "@components/Loader/Loader";
 
 const UserGuide2 = () => {
   const navigation = useNavigation();
