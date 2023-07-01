@@ -4,6 +4,7 @@ import DoctorContext from "./doctorContext";
 import DoctorReducer from "./doctorReducer";
 
 import { getDoctors, getDoctor } from "../../services/doctor/api";
+import { useAuth } from "../Authentication";
 
 export const DoctorProvider = ({ children }) => {
   const initialState = {
@@ -11,6 +12,8 @@ export const DoctorProvider = ({ children }) => {
     doctor: {},
     isAlert: false,
   };
+
+  const { isLoggedIn } = useAuth();
   const [state, dispatch] = useReducer(DoctorReducer, initialState);
 
   const setLoading = () => dispatch({ type: "SET_LOADING" });
@@ -29,7 +32,7 @@ export const DoctorProvider = ({ children }) => {
         dispatch({ type: "SET_LOADING_FALSE" });
       }
     });
-  }, []);
+  }, [isLoggedIn]);
 
   const getDoctorById = (id) => {
     setLoading();

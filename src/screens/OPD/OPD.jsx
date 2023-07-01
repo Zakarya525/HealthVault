@@ -26,7 +26,7 @@ function OPD({ opd }) {
   );
   const handleClick = () => {
     getOpdById(opd._id);
-    navigation.navigate("OPDProfile", { opdId: opd._id });
+    navigation.navigate("OPDProfile");
   };
 
   return (

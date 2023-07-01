@@ -14,6 +14,8 @@ export const AppProvider = ({ children }) => {
     isLoading: false,
   };
 
+  const { isLoggedIn } = useAuth();
+
   const { user } = useAuth();
 
   const [state, dispatch] = useReducer(AppReducer, initialState);
@@ -39,40 +41,7 @@ export const AppProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await getAuthToken();
-        if (!token) {
-          dispatch({ type: "SET_LOGGEDIN_FALSE" });
-          dispatch({ type: "SET_LOADING_FALSE" });
-          return;
-        }
-
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-
-        const res = await ApiManager.get("appointment/waiting", { headers });
-        console.log("This is waiting appointment: ", res.data);
-
-        dispatch({
-          type: "SET_APPOINTMENT",
-          payload: res.data.items,
-        });
-      } catch (error) {
-        console.log("Error:", error);
-      } finally {
-        dispatch({
-          type: "SET_LOADING_FALSE",
-        });
-      }
-    };
-
-    fetchData();
-  }, []);
+  }, [isLoggedIn]);
 
   const setAppointment = (data, opdId) => {
     console.log(data, opdId);

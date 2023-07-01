@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { styles } from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -80,6 +81,13 @@ const BookAppointment = () => {
     >
       {(formikProps) => (
         <ScrollView contentContainerStyle={styles.container}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="arrow-left" size={20} color="black" />
+          </TouchableOpacity>
+
           <Text style={styles.title}>Book an Appointment</Text>
 
           <Text style={styles.headingMedium}>From</Text>

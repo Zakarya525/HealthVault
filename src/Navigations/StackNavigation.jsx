@@ -5,8 +5,12 @@ import DoctorList from "../screens/Doctor/DoctorList";
 import DoctorProfile from "../screens/Doctor/DoctorProfile";
 import { UserGuide1, UserGuide2, UserGuide3 } from "../screens/UserGuide";
 import BottomNavigation from "./BottomNavigation";
-import { Login } from "../screens/Authentication";
-import { BookAppointment, Appointment } from "../screens/Appointment";
+import Login from "../screens/Authentication/Login";
+import {
+  BookAppointment,
+  Appointment,
+  AppointmentProfile,
+} from "../screens/Appointment";
 import Loader from "../components/Loader/Loader";
 import { useAuth } from "../context/Authentication";
 import { OPDList } from "../screens/OPD";
@@ -25,8 +29,11 @@ const StackNavigation = () => {
       {isLoggedIn ? (
         <Stack.Group>
           <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
-          <Stack.Screen name="BookAppointment" component={BookAppointment} />
           <Stack.Screen name="AppointmentScreen" component={Appointment} />
+          <Stack.Screen
+            name="AppointmentProfile"
+            component={AppointmentProfile}
+          />
           <Stack.Screen name="DoctorProfile" component={DoctorProfile} />
           <Stack.Screen name="DoctorList" component={DoctorList} />
           <Stack.Screen name="OPDList" component={OPDList} />

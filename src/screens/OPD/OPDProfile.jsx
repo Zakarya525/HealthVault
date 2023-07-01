@@ -2,17 +2,21 @@ import React, { useEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDoctor } from "@context/Doctors";
 import tw from "twrnc";
 import { colors } from "@utils";
 import { styles } from "./styles";
+import { useOPD } from "../../context/OPD";
 
-const DoctorProfile = () => {
+const OPDProfile = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { opdId } = route.params;
+  const { OPD } = useOPD();
+  const { doctors } = useDoctor();
 
+  console.log("the current OPD is: ", OPD);
   const handleClick = () => {
-    navigation.navigate("BookAppointment", { opdId: opdId });
+    navigation.navigate("BookAppointment");
   };
 
   return (
@@ -85,4 +89,4 @@ const DoctorProfile = () => {
   );
 };
 
-export default DoctorProfile;
+export default OPDProfile;

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../utils";
+import { colors, fonts } from "../../utils";
 
 export const styles = StyleSheet.create({
   container: {
@@ -52,9 +52,9 @@ export const styles = StyleSheet.create({
     borderRadius: 40,
   },
   avatarCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 90,
+    height: 90,
+    borderRadius: 50,
     backgroundColor: colors.primaryColor,
   },
   tabContainer: {
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     fontFamily: "Urbanist_400Regular",
   },
   workingTimeHours: {
-    fontFamily: "Urbanist_400Regular",
+    fontFamily: "Urbanist_700Bold",
     color: colors.primaryColor,
   },
   button: {
@@ -103,6 +103,17 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: "center",
+  },
+  row: {
+    flexDirection: "row",
+    marginBottom: 5,
+  },
+  label: {
+    fontFamily: fonts.bold,
+    width: 100,
+  },
+  value: {
+    flex: 1,
   },
   buttonText: {
     color: colors.white,

@@ -119,8 +119,11 @@ export const styles = StyleSheet.create({
   header: {
     marginTop: 20,
     marginLeft: 10,
-    flexDirection: "row",
-    alignItems: "center",
+  },
+  backButton: {
+    position: "absolute",
+    top: 30,
+    left: 16,
   },
   headingMedium: {
     fontSize: 20,

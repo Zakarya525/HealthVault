@@ -5,11 +5,8 @@ import { useDoctor } from "@context/Doctors";
 
 function Appointment({ appointment }) {
   const navigation = useNavigation();
-  const { getDoctorById } = useDoctor();
-
   const handleClick = () => {
-    // getDoctorById(appointment._id);
-    // navigation.navigate("DoctorProfile");
+    navigation.navigate("AppointmentProfile", { appointment: appointment });
   };
 
   return (

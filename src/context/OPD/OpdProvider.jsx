@@ -30,7 +30,7 @@ export const OpdProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [state.OPD, state.OPDs]);
+  }, []);
 
   useEffect(() => {
     setLoading();
@@ -48,12 +48,13 @@ export const OpdProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [state.activeOPDs]);
+  }, []);
 
   const getOpdById = async (id) => {
     try {
       const res = await ApiManager.get(`opd/${id}`);
-      if (res?.data)
+      console.log("After Hit of OPD ID", res.data);
+      if (res?.data.code === "fetched")
         dispatch({
           type: "SET_OPD",
           payload: res.data.items,

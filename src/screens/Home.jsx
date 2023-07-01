@@ -69,9 +69,10 @@ const Home = () => {
   const { user, isLoading } = useAuth();
   const { doctors } = useDoctor();
   const { activeOPD } = useOPD();
-  const [loaded, setLoaded] = useState(false);
 
   if (isLoading) return <Loader />;
+  console.log("The length of OPDS ", activeOPD);
+  console.log("The length of Doctors ", doctors.length);
 
   const renderOPDItem = ({ item }) => <OPD key={item._id} opd={item} />;
   const renderDoctorItem = ({ item }) => (
@@ -89,10 +90,7 @@ const Home = () => {
             <Image
               source={require("../images/banner.jpg")}
               style={tw`w-80 h-48 ml-10 rounded-xl`}
-              onLoad={() => setLoaded(true)}
-              fadeDuration={0}
             />
-            {!loaded && <Loader />}
           </View>
 
           <Text style={styles.headingMedium}>Doctor's Speciality</Text>
@@ -132,14 +130,15 @@ const Home = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {activeOPD.length && (
+            {activeOPD.length > 0 ? (
               <FlatList
                 data={activeOPD}
                 renderItem={renderOPDItem}
                 keyExtractor={(item) => item._id}
-                style={tw`h-64`}
                 showsVerticalScrollIndicator={false}
               />
+            ) : (
+              <Text>No active OPDs available</Text>
             )}
           </View>
 
