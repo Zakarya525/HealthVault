@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { colors, fonts } from "../../utils";
+import { color } from "react-native-elements/dist/helpers";
 
 export const styles = StyleSheet.create({
   container: {
@@ -123,5 +124,18 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: "Urbanist_400Regular",
     marginTop: 10,
+  },
+  chip: {
+    backgroundColor: colors.whiteBlue,
+    borderWidth: 2,
+    borderColor: colors.primaryColor,
+    borderRadius: 20,
+    textAlign: "center",
+    marginVertical: 20,
+    width: 90,
+  },
+  status: {
+    fontFamily: fonts.semiBold,
+    fontSize: 18,
   },
 });

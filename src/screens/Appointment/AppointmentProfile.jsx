@@ -86,6 +86,7 @@ const AppointmentProfile = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </Text>
         </View>
+        <Text style={[styles.status, styles.chip]}>{appointment.status}</Text>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleClick}>
