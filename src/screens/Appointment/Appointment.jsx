@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useDoctor } from "@context/Doctors";
+import { fonts } from "../../utils";
 
 function Appointment({ appointment }) {
   const navigation = useNavigation();
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
-    height: 120,
+    height: 100,
     marginBottom: 12,
     marginRight: 12,
     marginLeft: 12,
@@ -49,28 +50,19 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  image: {
-    width: 120,
-    height: 120,
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-    marginRight: 8,
-  },
   contentContainer: {
     justifyContent: "center",
     padding: 12,
   },
   nameText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
+    fontFamily: fonts.regular,
   },
   specialityText: {
-    fontSize: 16,
+    fontFamily: fonts.regular,
     color: "#666666",
   },
   dateText: {
-    fontSize: 14,
+    fontFamily: fonts.regular,
     color: "#999999",
   },
 });

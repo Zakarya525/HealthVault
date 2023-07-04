@@ -26,7 +26,7 @@ const OPDProfile = () => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={20} color="black" />
+          <Icon name="arrow-left" size={20} color={colors.primaryColor} />
         </TouchableOpacity>
         <Text style={styles.doctorName}></Text>
       </View>

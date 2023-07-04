@@ -7,7 +7,8 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Avatar from "react-native-vector-icons/FontAwesome5";
 import Search from "../../components/filters/Search";
 import { colors, fonts } from "../../utils";
 import Doctor from "../../components/Doctor";
@@ -52,7 +53,7 @@ export default function AppointmentList({ navigation }) {
           <Icon name="arrow-left" size={20} color={colors.primaryColor} />
         </TouchableOpacity>
 
-        <Icon
+        <Avatar
           name="hand-holding-medical"
           size={35}
           color={colors.primaryColor}

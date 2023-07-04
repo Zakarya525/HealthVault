@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
-    height: 120,
+    height: 100,
     marginBottom: 12,
     marginRight: 12,
     marginLeft: 12,
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
     marginRight: 8,

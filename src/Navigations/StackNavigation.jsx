@@ -35,6 +35,7 @@ const StackNavigation = () => {
             component={AppointmentProfile}
           />
           <Stack.Screen name="DoctorProfile" component={DoctorProfile} />
+          <Stack.Screen name="BookAppointment" component={BookAppointment} />
           <Stack.Screen name="DoctorList" component={DoctorList} />
           <Stack.Screen name="OPDList" component={OPDList} />
           <Stack.Screen name="OPDProfile" component={OPDProfile} />

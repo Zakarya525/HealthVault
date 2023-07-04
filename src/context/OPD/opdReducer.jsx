@@ -9,7 +9,7 @@ export default (state, action) => {
     case "SET_ACTIVE_OPD":
       return {
         ...state,
-        activeOPD: action.payload,
+        activeOPDs: action.payload,
         isLoading: false,
       };
     case "SET_OPD":

@@ -10,6 +10,7 @@ import * as MediaLibrary from "expo-media-library";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useAppointment } from "@context/Appointments";
 import { useAuth } from "@context/Authentication";
+import { useOPD } from "../../context/OPD";
 
 const validationSchema = Yup.object().shape({
   fromTime: Yup.string().required("From time is required"),
@@ -34,11 +35,9 @@ const BookAppointment = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { setAppointment, appointment } = useAppointment();
   const { user } = useAuth();
+  const { OPD } = useOPD();
   const { firstName, lastName, mobile, email, cnic } = user;
   const { status, tokenNumber } = appointment;
-
-  const route = useRoute();
-  const { opdId } = route.params;
   const viewRef = useRef(null);
 
   const saveModalImage = async () => {
@@ -68,7 +67,7 @@ const BookAppointment = () => {
   const handleBookAppointment = async (data, formikProps) => {
     setModalVisible(true);
 
-    setAppointment(data, opdId);
+    setAppointment(data, OPD._id);
 
     formikProps.resetForm();
   };

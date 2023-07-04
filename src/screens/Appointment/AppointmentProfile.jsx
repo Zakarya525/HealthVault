@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { styles } from "../Doctor/styles";
 import { useAuth } from "../../context/Authentication";
+import { colors } from "../../utils";
 
 const AppointmentProfile = () => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const AppointmentProfile = () => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={20} color="black" />
+          <Icon name="arrow-left" size={20} color={colors.primaryColor} />
         </TouchableOpacity>
         <Text style={styles.doctorName}>My Appointment</Text>
       </View>

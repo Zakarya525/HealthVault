@@ -34,8 +34,6 @@ function OPD({ opd }) {
       <View style={styles.contentContainer}>
         <Text style={styles.nameText}>{date}</Text>
 
-        <Text style={styles.specialityText}>Next OPD: {nextOPDTime}</Text>
-
         <Text style={styles.specialityText}>Last Token: {opd.lastToken}</Text>
         <Text style={styles.specialityText}>Status: {opd.status}</Text>
       </View>
@@ -49,7 +47,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
-    height: 120,
+    height: 100,
     marginBottom: 12,
     marginRight: 12,
     marginLeft: 12,

@@ -8,7 +8,7 @@ import Profile from "../screens/Profile";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Feather from "react-native-vector-icons/Feather";
 import AppointmentList from "../screens/Appointment/AppointmentList";
-
+import { fonts } from "../utils";
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
@@ -16,6 +16,10 @@ const BottomNavigation = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarLabelStyle: {
+          fontFamily: fonts.medium,
+          fontSize: 12,
+        },
       }}
     >
       <Tab.Screen
@@ -34,19 +38,6 @@ const BottomNavigation = () => {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="calendar-month"
-              color={color}
-              size={26}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="History"
-        component={History}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="page-previous-outline"
               color={color}
               size={26}
             />

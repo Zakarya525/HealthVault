@@ -68,11 +68,9 @@ const Home = () => {
   const navigation = useNavigation();
   const { user, isLoading } = useAuth();
   const { doctors } = useDoctor();
-  const { activeOPD } = useOPD();
+  const { activeOPDs } = useOPD();
 
   if (isLoading) return <Loader />;
-  console.log("The length of OPDS ", activeOPD);
-  console.log("The length of Doctors ", doctors.length);
 
   const renderOPDItem = ({ item }) => <OPD key={item._id} opd={item} />;
   const renderDoctorItem = ({ item }) => (
@@ -130,15 +128,17 @@ const Home = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {activeOPD.length > 0 ? (
+            {activeOPDs.length ? (
               <FlatList
-                data={activeOPD}
+                data={activeOPDs}
                 renderItem={renderOPDItem}
                 keyExtractor={(item) => item._id}
                 showsVerticalScrollIndicator={false}
               />
             ) : (
-              <Text>No active OPDs available</Text>
+              <Text style={[styles.mealTypeText, { marginHorizontal: 20 }]}>
+                No active OPDs available
+              </Text>
             )}
           </View>
 
