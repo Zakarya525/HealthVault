@@ -8,7 +8,14 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     marginStart: 10,
   },
-
+  bannerContainer: {
+    alignItems: "center",
+  },
+  bannerImage: {
+    width: "90%",
+    height: 200,
+    borderRadius: 10,
+  },
   headingMedium: {
     fontSize: 20,
     fontFamily: "Urbanist_700Bold",

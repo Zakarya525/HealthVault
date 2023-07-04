@@ -25,7 +25,7 @@ export const OpdProvider = ({ children }) => {
           });
         }
       } catch (error) {
-        console.log("API Error:", error);
+        // console.log("API Error:", error);
       }
     };
 
@@ -43,7 +43,7 @@ export const OpdProvider = ({ children }) => {
             payload: res.data.items,
           });
       } catch (error) {
-        console.log("API Error:", error);
+        // console.log("API Error:", error);
       }
     };
 
@@ -53,14 +53,13 @@ export const OpdProvider = ({ children }) => {
   const getOpdById = async (id) => {
     try {
       const res = await ApiManager.get(`opd/${id}`);
-      console.log("After Hit of OPD ID", res.data);
       if (res?.data.code === "fetched")
         dispatch({
           type: "SET_OPD",
           payload: res.data.items,
         });
     } catch (error) {
-      console.log("API Error:", error);
+      // console.log("API Error:", error);
     } finally {
       dispatch({
         type: "SET_LOADING_FALSE",

@@ -23,7 +23,7 @@ export const DoctorProvider = ({ children }) => {
 
     getDoctors().then((res) => {
       if (res?.code === "ok") {
-        console.log(res.items);
+        // console.log(res.items);
         dispatch({
           type: "GET_DOCTORS",
           payload: res.items,

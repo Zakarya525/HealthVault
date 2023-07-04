@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import { useState } from "react";
+import ResponsiveImage from "react-native-responsive-image";
 import { StatusBar } from "expo-status-bar";
 import tw from "twrnc";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -84,10 +84,10 @@ const Home = () => {
       ListHeaderComponent={
         <>
           <Text style={styles.headingLarge}>Greeting {user.firstName}</Text>
-          <View>
+          <View style={styles.bannerContainer}>
             <Image
               source={require("../images/banner.jpg")}
-              style={tw`w-80 h-48 ml-10 rounded-xl`}
+              style={styles.bannerImage}
             />
           </View>
 

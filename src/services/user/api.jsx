@@ -3,7 +3,6 @@ import ApiManager from "../ApiManager";
 export const loginUser = async (data) => {
   const endpoint = "auth/patientlogin";
   const response = await ApiManager.post(endpoint, data);
-  console.log(response.data);
   return response.data;
 };
 

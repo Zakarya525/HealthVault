@@ -14,7 +14,6 @@ const OPDProfile = () => {
   const { OPD } = useOPD();
   const { doctors } = useDoctor();
 
-  console.log("the current OPD is: ", OPD);
   const handleClick = () => {
     navigation.navigate("BookAppointment");
   };
