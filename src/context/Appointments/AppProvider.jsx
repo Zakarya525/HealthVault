@@ -41,7 +41,7 @@ export const AppProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, state.appointment]);
 
   const setAppointment = (data, opdId) => {
     console.log(data, opdId);

@@ -62,7 +62,8 @@
     "react-native-view-shot": "^3.5.0",
     "react-query": "^3.39.3",
     "twrnc": "^3.6.0",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "@shopify/react-native-skia": "0.1.172"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
