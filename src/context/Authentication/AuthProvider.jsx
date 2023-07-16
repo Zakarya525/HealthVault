@@ -22,17 +22,13 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (values) => {
     setLoading();
     const res = await loginUser(values);
-    res?.code === "authenticated"
-      ? (saveAuthToken(res.jwt),
-        dispatch({
-          type: "LOGIN_USER",
-          token: res.jwt,
-          payload: res.items,
-        }))
-      : (console.log("User not found"),
-        dispatch({
-          type: "SET_LOADING_FALSE",
-        }));
+
+    saveAuthToken(res.token),
+      dispatch({
+        type: "LOGIN_USER",
+        token: res.token,
+        payload: res.user,
+      });
   };
 
   const isMountedRef = useRef(false);
@@ -46,16 +42,23 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       getUserMe(token).then((res) => {
-        if (isMountedRef.current && res?.code === "authenticated") {
+        console.log("Executing Get user");
+        // if (isMountedRef.current && res?.code === "authenticated") {
+        if (res != null) {
           dispatch({
             type: "GET_USER",
-            payload: res.items,
+            payload: res,
             token: token,
           });
         } else {
           dispatch({ type: "SET_LOGGEDIN_FALSE" });
           dispatch({ type: "SET_LOADING_FALSE" });
         }
+
+        // } else {
+        //   dispatch({ type: "SET_LOGGEDIN_FALSE" });
+        //   dispatch({ type: "SET_LOADING_FALSE" });
+        // }
       });
     });
 

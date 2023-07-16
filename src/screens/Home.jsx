@@ -20,6 +20,8 @@ import Loader from "@components/Loader/Loader";
 import { useDoctor } from "@context/Doctors";
 import { useOPD } from "../context/OPD";
 import { OPD } from "./OPD";
+import { useEffect, useState } from "react";
+import ApiManager from "../services/ApiManager";
 
 const docterSpeciality = [
   {
@@ -67,12 +69,15 @@ const docterSpeciality = [
 const Home = () => {
   const navigation = useNavigation();
   const { user, isLoading } = useAuth();
-  const { doctors } = useDoctor();
-  const { activeOPDs } = useOPD();
+  // const { doctors } = useDoctor();
+  // const { activeOPDs } = useOPD();
+
+  const [activeOPDs, setActiveOPDs] = useState(["Opd"]);
+  const [doctors, setDoctors] = useState([]);
 
   if (isLoading) return <Loader />;
 
-  const renderOPDItem = ({ item }) => <OPD key={item._id} opd={item} />;
+  const renderOPDItem = ({ item }) => <OPD opd={item} />;
   const renderDoctorItem = ({ item }) => (
     <Doctor key={item._id} doctor={item} />
   );
@@ -83,7 +88,7 @@ const Home = () => {
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
         <>
-          <Text style={styles.headingLarge}>Greeting {user.firstName}</Text>
+          <Text style={styles.headingLarge}>Greeting {user.firstname}</Text>
           <View style={styles.bannerContainer}>
             <Image
               source={require("../images/banner.jpg")}
@@ -132,7 +137,7 @@ const Home = () => {
               <FlatList
                 data={activeOPDs}
                 renderItem={renderOPDItem}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => item}
                 showsVerticalScrollIndicator={false}
               />
             ) : (

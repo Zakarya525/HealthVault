@@ -10,7 +10,7 @@ import { useAuth } from "@context/Authentication";
 import Loader from "@components/Loader/Loader";
 
 const validationSchema = Yup.object().shape({
-  cnic: Yup.string().required("Email is required"),
+  email: Yup.string().required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
@@ -23,17 +23,19 @@ export default function Login() {
 
   if (isLoading) return <Loader />;
 
-  const formatCNIC = (cnic) => {
-    const digitsOnly = cnic.replace(/\D/g, "");
-    const formattedCNIC = digitsOnly.replace(
+  const formatemail = (email) => {
+    const digitsOnly = email.replace(/\D/g, "");
+    const formattedemail = digitsOnly.replace(
       /^(\d{5})(\d{7})(\d{1})$/,
       "$1-$2-$3"
     );
 
-    return formattedCNIC;
+    return formattedemail;
   };
 
   const handleLogin = async (values) => {
+    console.log(values);
+
     signIn(values);
   };
 
@@ -43,7 +45,7 @@ export default function Login() {
 
   return (
     <Formik
-      initialValues={{ cnic: "", password: "" }}
+      initialValues={{ email: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={handleLogin}
     >
@@ -59,15 +61,13 @@ export default function Login() {
             <Icon name="user" size={21} color="gray" />
             <TextInput
               style={styles.input}
-              placeholder="CNIC"
-              onChangeText={(cnic) =>
-                formikProps.setFieldValue("cnic", formatCNIC(cnic))
-              }
-              value={formikProps.values.cnic}
+              placeholder="Email"
+              onChangeText={formikProps.handleChange("email")}
+              value={formikProps.values.email}
             />
           </View>
-          {formikProps.errors.cnic && formikProps.touched.cnic && (
-            <Text style={styles.error}>{formikProps.errors.cnic}</Text>
+          {formikProps.errors.email && formikProps.touched.email && (
+            <Text style={styles.error}>{formikProps.errors.email}</Text>
           )}
           <View style={styles.inputContainer}>
             <Icon name="lock" size={21} color="gray" />

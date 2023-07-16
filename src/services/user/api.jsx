@@ -1,7 +1,7 @@
 import ApiManager from "../ApiManager";
 
 export const loginUser = async (data) => {
-  const endpoint = "auth/patientlogin";
+  const endpoint = "/auth/login";
   const response = await ApiManager.post(endpoint, data);
   return response.data;
 };
@@ -14,10 +14,13 @@ export const getUserMe = async (token) => {
       },
     };
 
-    const response = await ApiManager.get("auth/patient", config);
+    console.log("Executing get me");
+    const response = await ApiManager.get(
+      "/patient_user/get_login_user_details",
+      config
+    );
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw new Error(error.message);
+    return null;
   }
 };
