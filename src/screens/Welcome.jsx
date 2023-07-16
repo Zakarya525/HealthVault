@@ -10,6 +10,7 @@ const Welcome = () => {
 
   setTimeout(() => {
     navigation.replace("UserGuide1");
+    // navigation.replaace("Login");
   }, 3000);
 
   return (

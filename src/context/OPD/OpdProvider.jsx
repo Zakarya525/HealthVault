@@ -17,14 +17,16 @@ export const OpdProvider = ({ children }) => {
     setLoading();
     const fetchData = async () => {
       try {
-        const res = await ApiManager.get("/opd");
+        const res = await ApiManager.get("/patient_user/get_list_of_queue");
+
         if (res?.data) {
           dispatch({
             type: "SET_OPDS",
-            payload: res.data.items,
+            payload: res.data,
           });
         }
       } catch (error) {
+        return [];
         // console.log("API Error:", error);
       }
     };
