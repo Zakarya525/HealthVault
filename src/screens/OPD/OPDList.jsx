@@ -6,10 +6,9 @@ import OPD from "./OPD";
 import Search from "../../components/filters/Search";
 import { TouchableOpacity } from "react-native";
 import { colors } from "../../utils";
-import { useOPD } from "../../context/OPD";
 
 export default function OPDList({ navigation }) {
-  const { OPDs, activeOPD } = useOPD();
+  const OPDs = [];
   const [newItems, setNewItems] = useState(OPDs);
 
   const searchOPD = (text) => {

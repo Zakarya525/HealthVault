@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useDoctor } from "@context/Doctors";
 import { fonts } from "../../utils";
 
 function Appointment({ appointment }) {

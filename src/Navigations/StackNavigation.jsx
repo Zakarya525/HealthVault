@@ -12,15 +12,15 @@ import {
   AppointmentProfile,
 } from "../screens/Appointment";
 import Loader from "../components/Loader/Loader";
-import { useAuth } from "../context/Authentication";
 import { OPDList } from "../screens/OPD";
 import OPDProfile from "../screens/OPD/OPDProfile";
 import ArticleProfile from "../screens/Articles/ArticleProfile";
+import { useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
-  const { isLoading, isLoggedIn } = useAuth();
+  const { isLoading, isLoggedIn } = useSelector((state) => state.auth);
 
   if (isLoading) return <Loader />;
 

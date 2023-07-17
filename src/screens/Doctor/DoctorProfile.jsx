@@ -5,12 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 import tw from "twrnc";
 import { colors } from "@utils";
 import { styles } from "./styles";
-import { useDoctor } from "@context/Doctors";
 import Loader from "@components/Loader/Loader";
 
 const DoctorProfile = () => {
   const navigation = useNavigation();
-  const { doctor, isLoading } = useDoctor();
+  const { doctor, isLoading } = { doctor: null, isLoading: false };
   const {
     address,
     city,

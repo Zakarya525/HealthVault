@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { useOPD } from "@context/OPD";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 function OPD({ opd }) {

@@ -9,10 +9,8 @@ import {
   Urbanist_700Bold,
 } from "@expo-google-fonts/urbanist";
 import * as SplashScreen from "expo-splash-screen";
-import { AuthProvider } from "./src/context/Authentication";
-import { AppProvider } from "./src/context/Appointments";
-import { DoctorProvider } from "./src/context/Doctors/DoctorProvider.jsx";
-import { OpdProvider } from "./src/context/OPD/OpdProvider.jsx";
+import { Provider } from "react-redux";
+import store from "./src/store/store.js";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -34,16 +32,10 @@ export default function App() {
   SplashScreen.hideAsync();
 
   return (
-    <AuthProvider>
-      <AppProvider>
-        <DoctorProvider>
-          <OpdProvider>
-            <NavigationContainer>
-              <StackNavigation />
-            </NavigationContainer>
-          </OpdProvider>
-        </DoctorProvider>
-      </AppProvider>
-    </AuthProvider>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
+    </Provider>
   );
 }

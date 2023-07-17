@@ -2,17 +2,15 @@ import React, { useEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useDoctor } from "@context/Doctors";
 import tw from "twrnc";
 import { colors } from "@utils";
 import { styles } from "./styles";
-import { useOPD } from "../../context/OPD";
 
 const OPDProfile = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { OPD } = useOPD();
-  const { doctors } = useDoctor();
+  const OPD = [];
+  const doctors = [];
 
   const handleClick = () => {
     navigation.navigate("BookAppointment");

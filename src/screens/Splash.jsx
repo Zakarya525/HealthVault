@@ -7,9 +7,9 @@ import { useNavigation } from "@react-navigation/native";
 const Splash = () => {
   const navigation = useNavigation();
 
-  // setTimeout(() => {
-  //   navigation.navigate("Welcome");
-  // }, 3000);
+  setTimeout(() => {
+    navigation.navigate("Welcome");
+  }, 3000);
 
   return (
     <View style={styles.mainContainer}>

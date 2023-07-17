@@ -30,6 +30,8 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@shopify/react-native-skia": "0.1.172",
     "axios": "^1.4.0",
     "expo": "~48.0.6",
     "expo-font": "~11.1.1",
@@ -61,9 +63,9 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-view-shot": "^3.5.0",
     "react-query": "^3.39.3",
+    "react-redux": "^8.1.1",
     "twrnc": "^3.6.0",
-    "yup": "^1.1.1",
-    "@shopify/react-native-skia": "0.1.172"
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

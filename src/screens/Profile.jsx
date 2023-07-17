@@ -10,14 +10,14 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import MIcon from "react-native-vector-icons/FontAwesome5";
-import { useAuth } from "../context/Authentication";
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "@utils";
 import * as ImagePicker from "expo-image-picker";
 import placeholderImageUri from "../images/placeholder-image.png";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const { logOut, user } = useAuth();
+  const { logOut, user } = useSelector((state) => state.auth);
   const navigation = useNavigation();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedName, setEditedName] = useState(user.name);

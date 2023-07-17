@@ -8,9 +8,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { useAppointment } from "@context/Appointments";
-import { useAuth } from "@context/Authentication";
-import { useOPD } from "../../context/OPD";
+import { useSelector } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   fromTime: Yup.string().required("From time is required"),
@@ -33,9 +31,10 @@ const BookAppointment = () => {
   const navigation = useNavigation();
   const [selectedTime, setSelectedTime] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const { setAppointment, appointment } = useAppointment();
-  const { user } = useAuth();
-  const { OPD } = useOPD();
+  const setAppointment = () => {};
+  const appointment = null;
+  const { user } = useSelector((state) => state.auth);
+  const { OPD } = {};
   const { firstName, lastName, mobile, email, cnic } = user;
   const { status, tokenNumber } = appointment;
   const viewRef = useRef(null);

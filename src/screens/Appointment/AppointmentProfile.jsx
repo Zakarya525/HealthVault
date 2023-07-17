@@ -3,12 +3,12 @@ import { Text, TouchableOpacity, View, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { styles } from "../Doctor/styles";
-import { useAuth } from "../../context/Authentication";
 import { colors } from "../../utils";
+import { useSelector } from "react-redux";
 
 const AppointmentProfile = () => {
   const navigation = useNavigation();
-  const { user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
   const route = useRoute();
   const { appointment } = route.params;
   const date = new Date(appointment.time);

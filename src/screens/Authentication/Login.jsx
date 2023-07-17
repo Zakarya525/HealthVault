@@ -6,8 +6,9 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@context/Authentication";
 import Loader from "@components/Loader/Loader";
+import { useSelector } from "react-redux";
+import { useLoginMutation } from "../../services/loginApi";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
@@ -19,24 +20,15 @@ const validationSchema = Yup.object().shape({
 export default function Login() {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { isLoading, signIn } = useAuth();
+  // const { isLoading } = useSelector((state) => state.auth);
 
   if (isLoading) return <Loader />;
 
-  const formatemail = (email) => {
-    const digitsOnly = email.replace(/\D/g, "");
-    const formattedemail = digitsOnly.replace(
-      /^(\d{5})(\d{7})(\d{1})$/,
-      "$1-$2-$3"
-    );
-
-    return formattedemail;
-  };
-
   const handleLogin = async (values) => {
     console.log(values);
+    const { data, isLoading } = useLoginMutation(values);
 
-    signIn(values);
+    console.log(data);
   };
 
   const togglePasswordVisibility = () => {

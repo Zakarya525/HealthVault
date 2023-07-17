@@ -15,13 +15,10 @@ import { colors } from "@utils";
 import Doctor from "@components/Doctor";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@context/Authentication";
 import Loader from "@components/Loader/Loader";
-import { useDoctor } from "@context/Doctors";
-import { useOPD } from "../context/OPD";
 import { OPD } from "./OPD";
-import { useEffect, useState } from "react";
-import ApiManager from "../services/ApiManager";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const docterSpeciality = [
   {
@@ -68,9 +65,7 @@ const docterSpeciality = [
 
 const Home = () => {
   const navigation = useNavigation();
-  const { user, isLoading } = useAuth();
-  // const { doctors } = useDoctor();
-  // const { activeOPDs } = useOPD();
+  const { user, isLoading } = useSelector((state) => state.auth);
 
   const [activeOPDs, setActiveOPDs] = useState(["Opd"]);
   const [doctors, setDoctors] = useState([]);

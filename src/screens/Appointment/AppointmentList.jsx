@@ -5,10 +5,9 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import Search from "../../components/filters/Search";
 import { colors, fonts } from "@utils";
 import Appointment from "./Appointment";
-import { useAppointment } from "@context/Appointments";
 
 export default function AppointmentList({ navigation }) {
-  const { appointments } = useAppointment();
+  const appointments = [];
 
   const [filteredAppointment, setFilteredAppointment] = useState([]);
 

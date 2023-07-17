@@ -12,10 +12,9 @@ import Avatar from "react-native-vector-icons/FontAwesome5";
 import Search from "../../components/filters/Search";
 import { colors, fonts } from "../../utils";
 import Doctor from "../../components/Doctor";
-import { useDoctor } from "../../context/Doctors";
 
 export default function AppointmentList({ navigation }) {
-  const { doctors } = useDoctor();
+  const { doctors } = { doctors: [] };
   const [filteredDoctors, setFilteredAppointment] = useState([]);
 
   const searchAppointment = (text) => {
