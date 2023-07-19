@@ -7,33 +7,42 @@ import { styles } from "./style";
 import { colors } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
 import Loader from "@components/Loader/Loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../services/loginApi";
+import { setUser } from "../../store/authSlice";
+import { getAuthToken, saveAuthToken } from "../../storage/SecureStore";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required("Email is required"),
+  email: Yup.string()
+    .email("Enter a valid email")
+    .required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
 });
 
 export default function Login() {
-  const navigation = useNavigation();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  // const { isLoading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
-  if (isLoading) return <Loader />;
+  const [login, responseInfo] = useLoginMutation();
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handleLogin = async (values) => {
-    console.log(values);
-    const { data, isLoading } = useLoginMutation(values);
-
-    console.log(data);
+    const response = await login(values).unwrap();
+    dispatch(setUser(response));
+    saveAuthToken(response.token);
   };
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+
+  if (responseInfo.isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Formik

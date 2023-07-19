@@ -8,10 +8,6 @@ import { styles } from "./styles";
 
 const OPDProfile = () => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const OPD = [];
-  const doctors = [];
-
   const handleClick = () => {
     navigation.navigate("BookAppointment");
   };
@@ -28,7 +24,7 @@ const OPDProfile = () => {
         <Text style={styles.doctorName}></Text>
       </View>
 
-      <View style={styles.profileCard}>
+      {/* <View style={styles.profileCard}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatarCircle} />
         </View>
@@ -37,9 +33,9 @@ const OPDProfile = () => {
           <Text style={styles.doctorSpecialty}></Text>
           <Text style={styles.doctorLocation}></Text>
         </View>
-      </View>
+      </View> */}
 
-      <View style={styles.tabContainer}>
+      {/* <View style={styles.tabContainer}>
         <View style={tw`justify-center items-center m-2 shadow-md`}>
           <Icon name="users" size={24} color={colors.primaryColor} />
           <Text style={styles.text}>Patients</Text>
@@ -77,7 +73,7 @@ const OPDProfile = () => {
             </Text>
           </View>
         </View>
-      </View>
+      </View> */}
 
       <TouchableOpacity style={styles.button} onPress={handleClick}>
         <Text style={styles.buttonText}>Book Appointment</Text>

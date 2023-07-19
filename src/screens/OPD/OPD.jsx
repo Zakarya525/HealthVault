@@ -1,41 +1,23 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { setSelectedOpd } from "../../store/opdSlice";
 
 function OPD({ opd }) {
   const navigation = useNavigation();
-  // const { getOpdById } = useOPD();
-  // const date = new Date(opd.date).toLocaleDateString("en-US", {
-  //   year: "numeric",
-  //   month: "short",
-  //   day: "numeric",
-  //   hour: "numeric",
-  //   minute: "numeric",
-  // });
 
-  // const nextOPDTime = new Date(opd.expectedTimeToNext).toLocaleDateString(
-  //   "en-US",
-  //   {
-  //     year: "numeric",
-  //     month: "short",
-  //     day: "numeric",
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //   }
-  // );
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    // getOpdById(opd._id);
-    // navigation.navigate("OPDProfile");
-    console.log("Navigating to opd");
+    dispatch(setSelectedOpd(opd));
+    navigation.navigate("OPDProfile");
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleClick}>
       <View style={styles.contentContainer}>
         <Text style={styles.nameText}>{opd}</Text>
-        {/* 
-        <Text style={styles.specialityText}>Last Token: {opd.lastToken}</Text>
-        <Text style={styles.specialityText}>Status: {opd.status}</Text> */}
       </View>
     </TouchableOpacity>
   );

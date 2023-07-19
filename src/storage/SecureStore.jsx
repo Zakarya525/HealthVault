@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 
 export const saveAuthToken = async (token) => {
   await SecureStore.setItemAsync("authToken", token);
+  console.log(storedToken);
 };
 
 export const getAuthToken = async () => {

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import ResponsiveImage from "react-native-responsive-image";
 import { StatusBar } from "expo-status-bar";
 import tw from "twrnc";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -17,8 +16,11 @@ import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import Loader from "@components/Loader/Loader";
 import { OPD } from "./OPD";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetActiveOpdsQuery } from "../services/opdApi";
+import { useGetDoctorsQuery } from "../services/doctorApi";
+import { setOpds } from "../store/opdSlice";
 
 const docterSpeciality = [
   {
@@ -65,17 +67,16 @@ const docterSpeciality = [
 
 const Home = () => {
   const navigation = useNavigation();
-  const { user, isLoading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
-  const [activeOPDs, setActiveOPDs] = useState(["Opd"]);
+  const { data, isLoading, isSuccess } = useGetActiveOpdsQuery();
+  const doctorsQuery = useGetDoctorsQuery();
   const [doctors, setDoctors] = useState([]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading || doctorsQuery.isLoading) return <Loader />;
 
   const renderOPDItem = ({ item }) => <OPD opd={item} />;
-  const renderDoctorItem = ({ item }) => (
-    <Doctor key={item._id} doctor={item} />
-  );
+  const renderDoctorItem = ({ item }) => <Doctor key={item} doctor={item} />;
 
   return (
     <FlatList
@@ -128,9 +129,9 @@ const Home = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {activeOPDs.length ? (
+            {data.length ? (
               <FlatList
-                data={activeOPDs}
+                data={data}
                 renderItem={renderOPDItem}
                 keyExtractor={(item) => item}
                 showsVerticalScrollIndicator={false}
@@ -142,7 +143,7 @@ const Home = () => {
             )}
           </View>
 
-          <View style={tw`flex-row justify-between`}>
+          {/* <View style={tw`flex-row justify-between`}>
             <Text style={styles.headingMedium}>Top Doctors</Text>
             <TouchableOpacity onPress={() => navigation.navigate("DoctorList")}>
               <Text
@@ -156,12 +157,12 @@ const Home = () => {
                 See All
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </>
       }
       data={doctors.slice(0, 2)}
       renderItem={renderDoctorItem}
-      keyExtractor={(item) => item._id}
+      keyExtractor={(item) => item}
       ListFooterComponent={<StatusBar style="auto" />}
     />
   );

@@ -6,24 +6,23 @@ import OPD from "./OPD";
 import Search from "../../components/filters/Search";
 import { TouchableOpacity } from "react-native";
 import { colors } from "../../utils";
+import { useGetActiveOpdsQuery } from "../../services/opdApi";
 
 export default function OPDList({ navigation }) {
-  const OPDs = [];
-  const [newItems, setNewItems] = useState(OPDs);
+  const { data, isSuccess, isLoading } = useGetActiveOpdsQuery();
+  const [newItems, setNewItems] = useState(data);
 
   const searchOPD = (text) => {
     if (text) {
-      const newItems = OPDs.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : "".toUpperCase();
+      const newItems = data.filter((item) => {
+        const itemData = item ? item.toUpperCase() : "".toUpperCase();
 
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
       setNewItems(newItems);
     } else {
-      setNewItems(OPDs);
+      setNewItems(data);
     }
   };
 
@@ -39,7 +38,7 @@ export default function OPDList({ navigation }) {
       <Search placeHolder="Search OPDs" searchAction={searchOPD} />
       <FlatList
         data={newItems}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => <OPD opd={item} />}
       />
       <StatusBar style="auto" />

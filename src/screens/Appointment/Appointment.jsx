@@ -3,25 +3,45 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { fonts } from "../../utils";
 
-function Appointment({ appointment }) {
-  const navigation = useNavigation();
-  const handleClick = () => {
-    navigation.navigate("AppointmentProfile", { appointment: appointment });
-  };
+function convertTo12HourFormat(timeString) {
+  let [hours, minutes] = timeString.split(":");
 
+  hours = parseInt(hours);
+  minutes = parseInt(minutes);
+
+  let period = "am";
+
+  if (hours >= 12) {
+    period = "pm";
+    if (hours > 12) {
+      hours -= 12;
+    }
+  }
+
+  if (hours === 0) {
+    hours = 12;
+  }
+
+  return `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")} ${period}`;
+}
+
+function Appointment({ appointment }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={handleClick}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={styles.nameText}>Patient ID: {appointment.patientId}</Text>
+        <Text style={styles.nameText}>OPD: {appointment.opd_dep}</Text>
         <View style={styles.likesContainer}>
           <Text style={styles.specialityText}>
             Status: {appointment.status}
           </Text>
           <Text style={styles.dateText}>
-            From: {new Date(appointment.fromTime).toLocaleString()}
+            Time: {convertTo12HourFormat(appointment.appointmentTime)}
           </Text>
           <Text style={styles.dateText}>
-            To: {new Date(appointment.toTime).toLocaleString()}
+            Expiray Time:{" "}
+            {convertTo12HourFormat(appointment.appointmentExpiryTime)}
           </Text>
         </View>
       </View>

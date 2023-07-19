@@ -5,10 +5,16 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import Search from "../../components/filters/Search";
 import { colors, fonts } from "@utils";
 import Appointment from "./Appointment";
+import Loader from "../../components/Loader/Loader";
+import { useGetAppointmentsQuery } from "../../services/appointmentApi";
+import axios from "axios";
+import { getAuthToken } from "../../storage/SecureStore";
+import { useSelector } from "react-redux";
+import { isLoading } from "expo-font";
 
 export default function AppointmentList({ navigation }) {
-  const appointments = [];
-
+  // const { data, isSuccess, isLoading } = useGetAppointmentsQuery();
+  const appointments = useGetAppointmentsQuery();
   const [filteredAppointment, setFilteredAppointment] = useState([]);
 
   const searchAppointment = (text) => {
@@ -25,17 +31,29 @@ export default function AppointmentList({ navigation }) {
     }
   };
 
+  const auth = useSelector((state) => state.auth);
+
+  const addAppointment = useSelector(
+    (state) => state.appointment.addAppointment
+  );
+
   useEffect(() => {
-    setFilteredAppointment(appointments);
-  }, [appointments]);
-
-  const keyExtractor = (item) => {
-    if (item && item._id) {
-      return item._id.toString();
+    if (addAppointment) {
+      appointments.refetch();
+      // console.log("Refetching appointment");
+      // console.log("Add appointment value ", addAppointment);
+      // console.log(
+      //   "=============================Data========================\n\n"
+      // );
+      // console.log(appointments.data);
     }
-    return "";
-  };
+  }, [addAppointment]);
 
+  useEffect(() => {}, []);
+
+  if (appointments.isLoading) {
+    return <Loader />;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -51,11 +69,13 @@ export default function AppointmentList({ navigation }) {
         placeHolder="Search Appointment"
         searchAction={searchAppointment}
       />
-      {appointments && appointments.length > 0 ? (
+      {appointments.data && appointments.data.length > 0 ? (
         <FlatList
-          data={filteredAppointment}
+          data={appointments?.data}
           renderItem={({ item }) => <Appointment appointment={item} />}
-          keyExtractor={keyExtractor}
+          keyExtractor={(item) => item.appointment_id.toString()}
+          // style={{ paddingBottom: 130 }}
+          contentContainerStyle={{ paddingBottom: 130, marginBottom: 80 }}
         />
       ) : (
         <View style={styles.noAppointmentsContainer}>
@@ -95,5 +115,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.primaryColor,
     fontFamily: fonts.medium,
+  },
+
+  appointmentCard: {
+    padding: "32px",
+  },
+
+  pb50: {
+    paddingBottom: "32px",
   },
 });

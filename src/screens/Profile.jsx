@@ -14,10 +14,11 @@ import { useNavigation } from "@react-navigation/native";
 import { colors } from "@utils";
 import * as ImagePicker from "expo-image-picker";
 import placeholderImageUri from "../images/placeholder-image.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../store/authSlice";
 
 const Profile = () => {
-  const { logOut, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const navigation = useNavigation();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedName, setEditedName] = useState(user.name);
@@ -42,8 +43,12 @@ const Profile = () => {
     }
   };
 
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    logOut();
+    // navigation.navigate("Login");
+    navigation.navigate("Home");
+    dispatch(logOut());
   };
 
   const handleEditProfile = () => {
@@ -64,7 +69,7 @@ const Profile = () => {
       { label: "City", icon: "map-marker-alt", value: user.city },
       { label: "CNIC", icon: "id-card", value: user.cnic },
       { label: "Email", icon: "envelope", value: user.email },
-      { label: "Mobile", icon: "phone", value: user.mobile },
+      { label: "Mobile", icon: "phone", value: user.contact_no },
     ];
 
     return userData.map((item, index) => (
@@ -102,9 +107,7 @@ const Profile = () => {
           <MIcon name="user-edit" size={20} color="black" />
           <Text style={styles.userDataTextContainer}>Edit Profile Picture</Text>
         </TouchableOpacity>
-        <Text
-          style={styles.nameText}
-        >{`${user.firstName} ${user.lastName}`}</Text>
+        <Text style={styles.nameText}>{`${user.firstname}`}</Text>
       </View>
 
       {renderUserData()}

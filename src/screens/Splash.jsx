@@ -3,13 +3,24 @@ import { Header } from "../components/Headers";
 import Loader from "../components/Loader/Loader";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
+import { getAuthToken } from "../storage/SecureStore";
+import { useEffect } from "react";
 
 const Splash = () => {
   const navigation = useNavigation();
+  const token = getAuthToken();
 
   setTimeout(() => {
-    navigation.navigate("Welcome");
+    navigation.navigate("Login");
   }, 3000);
+
+  const loadToken = async () => {
+    storedToken = getAuthToken();
+    console.log(storedToken);
+  };
+  useEffect(() => {
+    loadToken();
+  }, []);
 
   return (
     <View style={styles.mainContainer}>

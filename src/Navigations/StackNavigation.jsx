@@ -15,14 +15,23 @@ import Loader from "../components/Loader/Loader";
 import { OPDList } from "../screens/OPD";
 import OPDProfile from "../screens/OPD/OPDProfile";
 import ArticleProfile from "../screens/Articles/ArticleProfile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useGetUserQuery } from "../services/userApi";
+import { setUser } from "../store/authSlice";
+import { getAuthToken } from "../storage/SecureStore";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
-  const { isLoading, isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
-  if (isLoading) return <Loader />;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("IsLoggedIn Changed to ");
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -44,11 +53,11 @@ const StackNavigation = () => {
       ) : (
         <Stack.Group>
           <Stack.Screen name="Splash" component={Splash} />
-          <Stack.Screen name="Welcome" component={Welcome} />
+          {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="UserGuide1" component={UserGuide1} />
+          {/* <Stack.Screen name="UserGuide1" component={UserGuide1} />
           <Stack.Screen name="UserGuide2" component={UserGuide2} />
-          <Stack.Screen name="UserGuide3" component={UserGuide3} />
+          <Stack.Screen name="UserGuide3" component={UserGuide3} /> */}
         </Stack.Group>
       )}
     </Stack.Navigator>
